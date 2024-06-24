@@ -6,12 +6,14 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/21 18:55:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/24 17:36:32 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+
+# include <pthread.h>
 
 typedef enum e_all_states
 {
@@ -20,6 +22,12 @@ typedef enum e_all_states
 	THINK,
 	DEAD,
 }	t_all_states;
+
+typedef struct s_time
+{
+	time_t	sec;
+	long	nano_sec;
+}	t_time;
 
 typedef struct s_state
 {
@@ -38,14 +46,11 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	pthread_t	philo;
+	int		philo_nb;
 	t_state		*state;
 	t_fork		*right_f;
 	t_fork		*left_f;
 	pthread_mutex_t	philo_mutex;
-	long		time_to_eat;
-	long		time_to_think;
-	long		time_to_sleep;
-	int		is_die;
 	int		i;
 	struct s_philo	*next;
 	struct s_philo	*prev;
@@ -56,6 +61,10 @@ typedef struct s_data
 	t_philo		*philo;
 	t_state		*state;
 	t_fork		*right_f;
+	long		time_to_eat;
+	long		time_to_think;
+	long		time_to_sleep;
+	int		is_die;
 	t_fork		*left_f;
 	pthread_mutex_t	data_mutex;
 }	t_data;

@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/21 18:57:01 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/24 17:40:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc < 2)
-		dprintf(2, "%s\n", argv[1]);
-	else
-		dprintf(2, "%s\n", argv[2]);
+//	pthread_t	nb_of_philos[philo_nb];
+	ft_check_params(argc, argv);
 }
