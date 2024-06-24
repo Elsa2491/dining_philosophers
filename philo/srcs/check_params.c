@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 19:31:13 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:34:27 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	ft_check_params(int argc, char **argv)
 		i += 1;
 	}
 	if (size != argc - 1)
-		return (dprintf(2, "No mercy!\n"), 1);
+		return (dprintf(2, "❌ No mercy!\n"), 1);
 	else
-		return (dprintf(2, "Get some rest!\n"), 0);
+		return (dprintf(2, "✅ Get some rest!\n"), 0);
 
 }
 
