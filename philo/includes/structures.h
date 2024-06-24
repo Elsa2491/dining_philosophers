@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 17:36:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/24 20:02:39 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	pthread_t	philo;
-	int		philo_nb;
 	t_state		*state;
 	t_fork		*right_f;
 	t_fork		*left_f;
-	pthread_mutex_t	philo_mutex;
 	int		i;
 	struct s_philo	*next;
 	struct s_philo	*prev;
@@ -61,11 +59,13 @@ typedef struct s_data
 	t_philo		*philo;
 	t_state		*state;
 	t_fork		*right_f;
+	t_fork		*left_f;
+	int		philo_nb;
 	long		time_to_eat;
 	long		time_to_think;
 	long		time_to_sleep;
 	int		is_die;
-	t_fork		*left_f;
+	//pthread_mutex_t	philo_mutex;
 	pthread_mutex_t	data_mutex;
 }	t_data;
 

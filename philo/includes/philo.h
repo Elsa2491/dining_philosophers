@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:37:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 17:17:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:59:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 
-int	ft_check_params(int argc, char **argv);
+void	ft_check_params(int argc, char **argv);
 #endif

@@ -6,13 +6,13 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 19:34:27 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/24 20:08:51 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	ft_is_num(char *str)
+static int	ft_is_num(char *str)
 {
 	int	i;
 
@@ -26,14 +26,14 @@ int	ft_is_num(char *str)
 	return (1);
 }
 
-int	ft_atoi(char *str)
+static int	ft_atoi(char *str)
 {
 	int	i;
 	int	base;
 
 	i = 0;
 	base = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13)) 
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i += 1;
 	if (str[i] == '+' || str[i] == '-')
 		return (0);
@@ -45,35 +45,34 @@ int	ft_atoi(char *str)
 	return (base);
 }
 
-int	ft_check_params(int argc, char **argv)
+void	ft_check_params(int argc, char **argv)
 {
 	int	i;
 	int	j;
 	int	size;
-	int	tab[argc - 1];
-	
-	i = 1;
+	int	*tab;
+
+	i = 0;
 	j = 0;
 	size = 0;
+	tab = (int *)malloc(sizeof(int) * argc - 1);
+	if (!tab)
+		exit (1);
 	if (argc != 5)
-		return (1);
-	while (i < argc)
-	{
+		exit (1);
+	while (++i < argc)
 		if (ft_is_num(argv[i]) && ft_atoi(argv[i]) > 0)
 			tab[j++] = ft_atoi(argv[i]);
-		i += 1;
-	}
 	i = 0;
-	while (i < j)
-	{
+	while (i++ < j)
 		size += 1;
-		i += 1;
-	}
 	if (size != argc - 1)
-		return (dprintf(2, "❌ No mercy!\n"), 1);
+	{
+		(void)(dprintf(2, "❌ No mercy!\n"));
+		exit (1);
+	}
 	else
-		return (dprintf(2, "✅ Get some rest!\n"), 0);
-
+		(void)(dprintf(2, "✅ Get some rest!\n"));
 }
 
 /*
@@ -92,4 +91,4 @@ int	ft_check_params(int argc, char **argv)
 	}
 	return (dprintf(2, "Get some rest!\n"), 0);
 }
-*/ 
+*/
