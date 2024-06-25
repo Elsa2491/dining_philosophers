@@ -6,14 +6,31 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 17:40:29 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:35:19 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+void	ft_init_data(t_data *data, char **argv)
+{
+	data->philo_nb = ft_atoi(argv[1]);
+	data->fork_nb = ft_atoi(argv[1]);
+	data->time_before_dying = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[3]);
+	dprintf(2, "Philo num: %d\n", data->philo_nb);
+	dprintf(2, "Fork num: %d\n", data->philo_nb);
+	dprintf(2, "Time before dying: %d\n", data->time_before_dying);
+	dprintf(2, "Time to eat: %d\n", data->time_to_eat);
+	dprintf(2, "Time to sleep: %d\n", data->time_to_sleep);
+}
+
 int	main(int argc, char **argv)
 {
-//	pthread_t	nb_of_philos[philo_nb];
+	t_data	data;
+
 	ft_check_params(argc, argv);
+	memset(&data, 0, sizeof(t_data));
+	ft_init_data(&data, argv);
 }
