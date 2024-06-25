@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 20:02:39 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:22:16 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ typedef struct s_data
 	t_fork		*right_f;
 	t_fork		*left_f;
 	int		philo_nb;
-	long		time_to_eat;
-	long		time_to_think;
-	long		time_to_sleep;
+	int		fork_nb;
+	int		time_before_dying;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		time_to_think;
 	int		is_die;
 	//pthread_mutex_t	philo_mutex;
 	pthread_mutex_t	data_mutex;

@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 20:08:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:17:43 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_is_num(char *str)
 	return (1);
 }
 
-static int	ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
 	int	i;
 	int	base;
@@ -59,7 +59,7 @@ void	ft_check_params(int argc, char **argv)
 	if (!tab)
 		exit (1);
 	if (argc != 5)
-		exit (1);
+		ft_print_missing_param(tab);
 	while (++i < argc)
 		if (ft_is_num(argv[i]) && ft_atoi(argv[i]) > 0)
 			tab[j++] = ft_atoi(argv[i]);
@@ -67,28 +67,6 @@ void	ft_check_params(int argc, char **argv)
 	while (i++ < j)
 		size += 1;
 	if (size != argc - 1)
-	{
-		(void)(dprintf(2, "❌ No mercy!\n"));
-		exit (1);
-	}
-	else
-		(void)(dprintf(2, "✅ Get some rest!\n"));
+		ft_print_missing_param(tab);
+	free(tab);
 }
-
-/*
-int	ft_check_params(int argc, char **argv)
-{
-	int	i;
-	
-	i = 1;
-	if (argc != 5)
-		return (1);
-	while (i < argc)
-	{
-		if (!ft_is_num(argv[i]) || ft_atoi(argv[i]) <= 0)
-			return (dprintf(2, "No mercy!\n"), 1);
-		i += 1;
-	}
-	return (dprintf(2, "Get some rest!\n"), 0);
-}
-*/
