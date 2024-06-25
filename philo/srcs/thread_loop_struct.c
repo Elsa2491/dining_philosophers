@@ -6,16 +6,11 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:31:21 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/24 12:51:33 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/25 11:57:22 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/wait.h>
-#include <sys/types.h>
+#include "../includes/philo.h"
 
 //typedef struct s_data t_data;
 
@@ -100,22 +95,27 @@ void	*ft_routine(void *data)
 
 int	main(void)
 {
-	pthread_t	tid[100];
+	pthread_t	philo[100];
 	t_counter	counter;
 	int	i = 0;
 
 	pthread_mutex_init(&counter.count_mutex, NULL);
 	while (i < 100)
 	{
-		if (pthread_create(&tid[i], NULL, &ft_routine, &counter) != 0)
+		if (pthread_create(&philo[i], NULL, &ft_routine, &counter) != 0)
 			return (1);
+		if (philo[i] % 2 == 0)
+		{
+			dprintf(2, "je suis pair\n");
+			usleep(10000);
+		}
 		dprintf(1, "Thread %d has started\n", i);
 		i += 1;
 	}
 	i = 0;
 	while (i < 100)
 	{
-		if (pthread_join(tid[i], NULL) != 0)
+		if (pthread_join(philo[i], NULL) != 0)
 		{
 			dprintf(2, "je suis la\n");
 			return (1);
