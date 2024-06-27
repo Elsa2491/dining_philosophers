@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 14:51:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 15:12:30 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_init_philos_and_forks(t_table *table)
 		// check if malloc fail
 		// if (!table->philo_tab[i])
 		//	ft_free_tab(table, i);
-		//table->fork_tab[i++] = (t_fork *)malloc(sizeof(t_fork));
+	//	table->fork_tab[i++] = (t_fork *)malloc(sizeof(t_fork));
 		table->fork_tab[i] = (t_fork *)malloc(sizeof(t_fork));
 		// check if malloc fail
 //		dprintf(2, "table->philo_tab[%d]\t-> %ld\n", i, (long)table->philo_tab[i]);
