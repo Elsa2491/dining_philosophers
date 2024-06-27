@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 15:12:30 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 17:03:45 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_init_table(t_table *table, char **argv)
 	dprintf(2, " Time to sleep:\t\t%d\n", table->time_to_sleep);
 }
 
-void	ft_init_philos_and_forks(t_table *table)
+void	ft_init_philos(t_table *table)
 {
 	int	i;
 
@@ -35,21 +35,43 @@ void	ft_init_philos_and_forks(t_table *table)
 	table->philo_tab = (t_philo **)malloc(sizeof(t_philo *) * table->philo_nb);
 	if (!table->philo_tab)
 		return ;
-	table->fork_tab = (t_fork **)malloc(sizeof(t_fork *) * table->philo_nb);
-	if (!table->fork_tab)
-		return ;
 	while (i < table->philo_nb)
 	{
 		table->philo_tab[i] = (t_philo *)malloc(sizeof(t_philo));
 		// check if malloc fail
 		// if (!table->philo_tab[i])
 		//	ft_free_tab(table, i);
-	//	table->fork_tab[i++] = (t_fork *)malloc(sizeof(t_fork));
-		table->fork_tab[i] = (t_fork *)malloc(sizeof(t_fork));
-		// check if malloc fail
-//		dprintf(2, "table->philo_tab[%d]\t-> %ld\n", i, (long)table->philo_tab[i]);
-//		dprintf(2, "table->fork_tab[%d]\t-> %ld\n", i, (long)table->fork_tab[i]);
+		if (i == table->philo_nb - 1)
+		{
+			table->philo_tab[i]->left_f = table->fork_tab[i];
+			dprintf(2, "philo n %d a la fourchette %d comme fourchette gauche ", i, i);
+			table->philo_tab[i]->right_f = table->fork_tab[0];
+			dprintf(2, "et la fourchette 0 comme fourchette droite\n");
+		}
+		else
+		{
+			table->philo_tab[i]->right_f = table->fork_tab[i];
+			dprintf(2, "philo n %d a la fourchette %d comme fourchette droite ", i, i);
+			table->philo_tab[i]->left_f = table->fork_tab[i + 1];
+			dprintf(2, "et la fourchette %d comme fourchette gauche\n", i + 1);
+		}
 		dprintf(2, "table->philo_tab\t-> %d\n", i);
+		i += 1;
+	}
+}
+
+void	ft_init_forks(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	table->fork_tab = (pthread_mutex_t **)malloc(sizeof(pthread_mutex_t *) * table->philo_nb);
+	if (!table->fork_tab)
+		return ;
+	while (i < table->philo_nb)
+	{
+		table->fork_tab[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+		// check if malloc fail
 		dprintf(2, "table->fork_tab\t\t-> %d\n", i);
 		i += 1;
 	}

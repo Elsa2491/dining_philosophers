@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:37:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 15:15:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 15:40:43 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	ft_free_tab(t_table *table);
 
 //	Init
 void	ft_init_table(t_table *table, char **argv);
-void	ft_init_philos_and_forks(t_table *table); //, t_philo *philo);
-// void	ft_init_forks(t_table *table);	
+
+//void	ft_init_philos_and_forks(t_table *table); //, t_philo *philo);
+void	ft_init_philos(t_table *table);
+void	ft_init_forks(t_table *table);
 #endif

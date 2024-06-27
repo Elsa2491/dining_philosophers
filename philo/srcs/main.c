@@ -6,19 +6,13 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 14:49:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:28:53 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 /*
-void	ft_init_philo_thread(t_philo *philo)
-{
-
-}
-*/
-
 void	ft_assign_forks(t_table *table) //, t_philo *philo)
 {
 	int	i;
@@ -38,6 +32,7 @@ void	ft_assign_forks(t_table *table) //, t_philo *philo)
 		i += 1;
 	}
 }
+*/
 
 int	main(int argc, char **argv)
 {
@@ -45,9 +40,12 @@ int	main(int argc, char **argv)
 
 	ft_check_params(argc, argv);
 	memset(&table, 0, sizeof(t_table));
-	memset(&table.fork, 0, sizeof(t_fork));
+//	memset(&table.fork, 0, sizeof(t_fork));
 	ft_init_table(&table, argv);
-	ft_init_philos_and_forks(&table); //, table.philo);
+	//ft_init_philos(&table);
+	ft_init_forks(&table);
+	ft_init_philos(&table);
+//	ft_init_philos_and_forks(&table); //, table.philo);
 //	ft_assign_forks(&table); // , table.philo);
 //	ft_init_philo_thread(&table.philo);
 	ft_free_tab(&table);

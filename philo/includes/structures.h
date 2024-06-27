@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 14:31:30 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:20:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,40 +37,32 @@ typedef struct s_state
 	struct s_state	*prev;
 }	t_state;
 
-typedef struct s_fork
-{
-	int	i;
-	pthread_mutex_t	fork_mutex;
-}	t_fork;
-
 typedef struct s_philo
 {
-	pthread_t	philo;
+//	pthread_t	philo;
 	struct s_table		*table;
 	t_state		*state;
-	t_fork		*right_f;
-	t_fork		*left_f;
-	int		i;
-	struct s_philo	*next;
-	struct s_philo	*prev;
+	pthread_mutex_t		*right_f;
+	pthread_mutex_t		*left_f;
+//	int		i;
+//	struct s_philo	*next;
+//	struct s_philo	*prev;
 }	t_philo;
 
 typedef struct s_table
 {
 	t_philo		**philo_tab;
-	t_philo		*philo;
-	t_fork		**fork_tab;
-	t_state		*state;
-	t_fork		*fork;
+	pthread_mutex_t	**fork_tab;
+//	t_fork		**fork_tab;
 	int		philo_nb;
 	int		fork_nb;
 	int		time_before_dying;
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		time_to_think;
-	int		is_die;
+	int		is_dead;
 	//pthread_mutex_t	philo_mutex;
-	pthread_mutex_t	table_mutex;
+	pthread_mutex_t	**table_mutex;
 }	t_table;
 
 #endif
