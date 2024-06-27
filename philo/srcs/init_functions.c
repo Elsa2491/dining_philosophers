@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 17:03:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 19:18:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_init_table(t_table *table, char **argv)
 {
 	table->philo_nb = ft_atoi(argv[1]);
-//	table->fork_nb = ft_atoi(argv[1]);
+	table->fork_nb = ft_atoi(argv[1]);
 	table->time_before_dying = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
@@ -27,6 +27,24 @@ void	ft_init_table(t_table *table, char **argv)
 	dprintf(2, " Time to sleep:\t\t%d\n", table->time_to_sleep);
 }
 
+void	ft_init_forks(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	table->fork_tab = (pthread_mutex_t **)malloc(sizeof(pthread_mutex_t *) * table->philo_nb);
+	if (!table->fork_tab)
+		return ;
+	while (i < table->philo_nb)
+	{
+		table->fork_tab[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+		// check if malloc fail
+		dprintf(2, "table->fork_tab\t\t-> %d\n", i);
+		i += 1;
+	}
+}
+
+// INIT STATE
 void	ft_init_philos(t_table *table)
 {
 	int	i;
@@ -60,19 +78,38 @@ void	ft_init_philos(t_table *table)
 	}
 }
 
-void	ft_init_forks(t_table *table)
+void	ft_init_threads(t_table *table)
 {
 	int	i;
 
 	i = 0;
-	table->fork_tab = (pthread_mutex_t **)malloc(sizeof(pthread_mutex_t *) * table->philo_nb);
-	if (!table->fork_tab)
+	table->thread_id = (pthread_t *)malloc(sizeof(pthread_t) * table->philo_nb);
+	if (!table->thread_id)
 		return ;
+	// Mutex pour attendre la creation des threads
 	while (i < table->philo_nb)
 	{
-		table->fork_tab[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-		// check if malloc fail
-		dprintf(2, "table->fork_tab\t\t-> %d\n", i);
+		pthread_mutex_init(table->fork_tab[i], NULL);
+		i += 1;
+	}
+	i = 0;
+	while (i < table->philo_nb)
+	{
+		dprintf(2, "\tcoucou\n");
+		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
+		{
+			dprintf(2, "Attention tout le monde, je fail !\n");
+		// Attention, si le thread 3 fail, il faut join les threads crees et tout arreter
+			return ;
+		}
+		i += 1;	
+	} 
+	// Unlock mutex 
+	i = 0;
+	while (i < table->philo_nb)
+	{
+		if (pthread_join(table->thread_id[i], NULL) != 0)
+			return ;
 		i += 1;
 	}
 }

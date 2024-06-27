@@ -6,33 +6,44 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 16:28:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 19:19:48 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/*
-void	ft_assign_forks(t_table *table) //, t_philo *philo)
+void	ft_take_forks(t_philo *philo)
 {
-	int	i;
+	dprintf(2, "\t->%s\n", __func__);
+	if (pthread_mutex_lock(philo->left_f) == 0)
+		printf("j'ai pris ma fourchette gauche\n");
+	else // si la fourchette est occupee, je ne rentre pas dans le else parce que pthread ne retourne rien dans ce cas la, donc je reste coincee sur cette meme ligne
+		printf("error\n");
+	if (pthread_mutex_lock(philo->right_f) == 0)
+		printf("j'ai pris ma fourchette right\n");
+	else
+		printf("error\n");
+	printf("je commence a manger\n");
+	usleep(philo->table->time_to_eat);
+	if (pthread_mutex_unlock(philo->right_f) == 0)
+		printf("j'ai repose ma fourchette droite\n");
+	if (pthread_mutex_unlock(philo->left_f) == 0)
+		printf("j'ai repose ma fourchette gauche\n");
 
-	i = 0;
-	while (i < table->philo_nb)
+}
+
+void	*ft_routine(void *philo)
+{
+	dprintf(2, "\t->%s\n", __func__);
+	while (1)
 	{
-		dprintf(2, "i vaut %d\n", i);
-		if (i % 2 == 0)
-		{
-			dprintf(2, "i modulo 2 ok\n");
-//			table->philo_tab[i]->left_f->i = i;
-			
-		}
-		else
-			table->philo_tab[i]->right_f->i = i;
-		i += 1;
+		ft_take_forks(philo);
+//		ft_eat();
+//		ft_drop_forks();
+//		ft_sleep();
+//		ft_think();
 	}
 }
-*/
 
 int	main(int argc, char **argv)
 {
@@ -40,13 +51,12 @@ int	main(int argc, char **argv)
 
 	ft_check_params(argc, argv);
 	memset(&table, 0, sizeof(t_table));
-//	memset(&table.fork, 0, sizeof(t_fork));
 	ft_init_table(&table, argv);
-	//ft_init_philos(&table);
 	ft_init_forks(&table);
 	ft_init_philos(&table);
-//	ft_init_philos_and_forks(&table); //, table.philo);
-//	ft_assign_forks(&table); // , table.philo);
-//	ft_init_philo_thread(&table.philo);
+	ft_init_threads(&table);
+	//	ft_init_philos_and_forks(&table); //, table.philo);
+	//	ft_assign_forks(&table); // , table.philo);
+	//	ft_init_philo_thread(&table.philo);
 	ft_free_tab(&table);
 }
