@@ -6,24 +6,37 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/25 16:27:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:49:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_init_table(t_table *table, char **argv)
+/*
+void	ft_init_philo_thread(t_philo *philo)
 {
-	table->philo_nb = ft_atoi(argv[1]);
-	table->fork_nb = ft_atoi(argv[1]);
-	table->time_before_dying = ft_atoi(argv[2]);
-	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_sleep = ft_atoi(argv[4]);
-	dprintf(2, " Philo num:\t\t%d\n", table->philo_nb);
-	dprintf(2, " Fork num:\t\t%d\n", table->philo_nb);
-	dprintf(2, " Time before dying:\t%d\n", table->time_before_dying);
-	dprintf(2, " Time to eat:\t\t%d\n", table->time_to_eat);
-	dprintf(2, " Time to sleep:\t\t%d\n", table->time_to_sleep);
+
+}
+*/
+
+void	ft_assign_forks(t_table *table) //, t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_nb)
+	{
+		dprintf(2, "i vaut %d\n", i);
+		if (i % 2 == 0)
+		{
+			dprintf(2, "i modulo 2 ok\n");
+//			table->philo_tab[i]->left_f->i = i;
+			
+		}
+		else
+			table->philo_tab[i]->right_f->i = i;
+		i += 1;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -32,5 +45,10 @@ int	main(int argc, char **argv)
 
 	ft_check_params(argc, argv);
 	memset(&table, 0, sizeof(t_table));
+	memset(&table.fork, 0, sizeof(t_fork));
 	ft_init_table(&table, argv);
+	ft_init_philos_and_forks(&table); //, table.philo);
+//	ft_assign_forks(&table); // , table.philo);
+//	ft_init_philo_thread(&table.philo);
+	ft_free_tab(&table);
 }

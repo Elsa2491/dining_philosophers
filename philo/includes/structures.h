@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/25 16:28:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:31:30 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ typedef struct s_philo
 
 typedef struct s_table
 {
+	t_philo		**philo_tab;
 	t_philo		*philo;
+	t_fork		**fork_tab;
 	t_state		*state;
-	t_fork		*right_f;
-	t_fork		*left_f;
+	t_fork		*fork;
 	int		philo_nb;
 	int		fork_nb;
 	int		time_before_dying;

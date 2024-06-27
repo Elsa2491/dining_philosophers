@@ -1,6 +1,6 @@
 NAME = philosophers
 
-CC = cc -Wall -Wextra -Werror #-Weverything
+CC = cc -Wall -Wextra -Werror -g3 #-Weverything
 MAKEFLAGS += --no-print-directory
 
 GREEN := \e[32m
@@ -8,7 +8,7 @@ RESET :=\e[0m
 
 SRCS_PATH = $(shell find srcs -type d)
 
-SRCS = check_params.c print_errors.c main.c 
+SRCS = check_params.c print_errors.c free_functions.c init_functions.c main.c 
 
 vpath %.c $(foreach dir, $(SRCS_PATH), $(dir):)
 
