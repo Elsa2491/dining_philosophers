@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/02 15:28:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/02 19:00:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,27 @@ void	ft_take_forks(t_philo **philo)
 		printf("j'ai pris ma fourchette droite\n");
 	else
 		printf("error\n");
-	printf("je commence a manger\n");
+}
+
+void	ft_eat(t_philo **philo)
+{
+	printf("is eating\n");
 	usleep((*philo)->table->time_to_eat);
+}
+
+void	ft_drop_forks(t_philo **philo)
+{
+	//usleep(3000000);
 	if (pthread_mutex_unlock((*philo)->right_f) == 0)
 		printf("j'ai repose ma fourchette droite\n");
 	if (pthread_mutex_unlock((*philo)->left_f) == 0)
 		printf("j'ai repose ma fourchette gauche\n");
+}
+
+void	ft_sleep(t_philo **philo)
+{
+	printf("is sleeping\n");
+	usleep((*philo)->table->time_to_sleep);
 }
 
 void	*ft_routine(void *philo)
@@ -37,9 +52,9 @@ void	*ft_routine(void *philo)
 	while (1)
 	{
 		ft_take_forks(philo);
-//		ft_eat();
-//		ft_drop_forks();
-//		ft_sleep();
+		ft_eat(philo);
+		ft_drop_forks(philo);
+		ft_sleep(philo);
 //		ft_think();
 	}
 }
@@ -54,8 +69,5 @@ int	main(int argc, char **argv)
 	ft_init_forks(&table);
 	ft_init_philos(&table);
 	ft_init_threads(&table);
-	//	ft_init_philos_and_forks(&table); //, table.philo);
-	//	ft_assign_forks(&table); // , table.philo);
-	//	ft_init_philo_thread(&table.philo);
 	ft_free_tab(&table);
 }
