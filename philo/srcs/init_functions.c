@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 21:06:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/02 15:25:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	ft_init_forks(t_table *table)
 	int	i;
 
 	i = 0;
-	table->fork_tab = (pthread_mutex_t **)malloc(sizeof(pthread_mutex_t *) * table->philo_nb);
+	table->fork_tab = (pthread_mutex_t **)malloc(sizeof(pthread_mutex_t *) * table->fork_nb);
 	if (!table->fork_tab)
 		return ;
-	while (i < table->philo_nb)
+	while (i < table->fork_nb)
 	{
 		table->fork_tab[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		// check if malloc fail
@@ -59,21 +59,21 @@ void	ft_init_philos(t_table *table)
 		// check if malloc fail
 		// if (!table->philo_tab[i])
 		//	ft_free_tab(table, i);
+		table->philo_tab[i]->table = table; 
 		if (i == table->philo_nb - 1)
 		{
 			table->philo_tab[i]->left_f = table->fork_tab[i];
-			dprintf(2, "philo n %d a la fourchette %d comme fourchette gauche ", i, i);
+			dprintf(2, "philo %d a la fourchette %d comme fourchette gauche ", i, i);
 			table->philo_tab[i]->right_f = table->fork_tab[0];
 			dprintf(2, "et la fourchette 0 comme fourchette droite\n");
 		}
 		else
 		{
 			table->philo_tab[i]->right_f = table->fork_tab[i];
-			dprintf(2, "philo n %d a la fourchette %d comme fourchette droite ", i, i);
+			dprintf(2, "philo %d a la fourchette %d comme fourchette droite ", i, i);
 			table->philo_tab[i]->left_f = table->fork_tab[i + 1];
 			dprintf(2, "et la fourchette %d comme fourchette gauche\n", i + 1);
 		}
-		dprintf(2, "table->philo_tab\t-> %d\n", i);
 		i += 1;
 	}
 }

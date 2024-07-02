@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 17:27:36 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/02 12:52:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,10 @@ typedef struct s_state
 
 typedef struct s_philo
 {
-//	pthread_t	philo;
 	struct s_table		*table;
 	t_state		*state;
 	pthread_mutex_t		*right_f;
 	pthread_mutex_t		*left_f;
-//	int		i;
-//	struct s_philo	*next;
-//	struct s_philo	*prev;
 }	t_philo;
 
 typedef struct s_table
@@ -54,7 +50,6 @@ typedef struct s_table
 	t_philo		**philo_tab;
 	pthread_mutex_t	**fork_tab;
 	pthread_t	*thread_id;
-//	t_fork		**fork_tab;
 	int		philo_nb;
 	int		fork_nb;
 	int		time_before_dying;
@@ -62,7 +57,6 @@ typedef struct s_table
 	int		time_to_sleep;
 	int		time_to_think;
 	int		is_dead;
-	//pthread_mutex_t	philo_mutex;
 	pthread_mutex_t	**table_mutex;
 }	t_table;
 
