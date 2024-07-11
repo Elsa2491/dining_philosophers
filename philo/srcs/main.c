@@ -13,6 +13,7 @@
 #include "../includes/philo.h"
 
 void	ft_drop_forks(t_philo **philo, int id);
+int	ft_usleep(int millisec);
 
 void	ft_eat(t_philo **philo, int id)
 {
@@ -24,18 +25,10 @@ void	ft_eat(t_philo **philo, int id)
 		printf("%d has taken a fork (left) ✅\n", id);
 	else
 		printf("error\n");
-	usleep((*philo)->table->time_to_eat);
 	printf("%d is eating 🥄\n", id);
+	ft_usleep((*philo)->table->time_to_eat);
 	ft_drop_forks(philo, id);
 }
-
-/*
-void	ft_eat(t_philo **philo, int id)
-{
-	printf("%d is eating\n", id);
-	usleep((*philo)->table->time_to_eat);
-}
-*/
 
 void	ft_drop_forks(t_philo **philo, int id)
 {
@@ -47,7 +40,8 @@ void	ft_drop_forks(t_philo **philo, int id)
 
 void	ft_sleep(t_philo **philo, int id)
 {
-	usleep((*philo)->table->time_to_sleep);
+	//dprintf(2, "\t->%s\n", __func__);
+	ft_usleep((*philo)->table->time_to_sleep);
 	printf("%d is sleeping 😴\n", id);
 }
 
@@ -73,13 +67,9 @@ void	*ft_routine(void *args)
 	while (1)
 	{
 //		dprintf(2, "id -> %d\n", id);
-//		ft_take_forks(philo_ptr, id);
-//		ft_eat(philo_ptr, id);
-//		ft_drop_forks(philo_ptr, id);
 		ft_think(philo_ptr, id);
 		ft_sleep(philo_ptr, id);
 		ft_eat(philo_ptr, id);
-//		ft_drop_forks(philo_ptr, id);
 	}
 }
 
@@ -87,7 +77,7 @@ void	ft_handle_one_philo(t_table *table)
 {
 	if (table->time_before_dying < table->time_to_eat)
 	{
-		usleep(table->time_before_dying);
+		ft_usleep(table->time_before_dying);
 		exit (1);
 	}
 }
@@ -99,6 +89,46 @@ void	ft_destroy_mutex(t_table *table)
 	i = 0;
 	while (i < table->philo_nb)
                 pthread_mutex_destroy(table->fork_tab[i++]);
+}
+ 
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i += 1;
+	return (i);
+}
+
+void	ft_putstr_fd(char *str, int fd)
+{
+	if (!str)
+		return ;
+	write(fd, str, ft_strlen(str));
+}
+
+int	ft_get_current_time(void)
+{
+	struct timeval	time;
+	int	convert_millisec;
+	int	avoid_division;
+
+	if (gettimeofday(&time, NULL) == -1)
+		ft_putstr_fd("get_current_time() error\n", 2);
+	convert_millisec = time.tv_sec * 1000;
+	avoid_division = (time.tv_usec * 1001) >> 10;
+	return (convert_millisec + avoid_division);
+}
+
+int	ft_usleep(int millisec)
+{
+	int	start;
+
+	start = ft_get_current_time();
+	while ((ft_get_current_time() - start) < millisec)
+		usleep(500);
+	return (0);
 }
 
 int	main(int argc, char **argv)

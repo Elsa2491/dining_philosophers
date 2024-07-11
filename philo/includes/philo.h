@@ -23,6 +23,7 @@
 //# include <pthread.h>
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <sys/time.h>
 
 # define WARNING         " → Warning\n"
 # define ARROW  "\t→ "
