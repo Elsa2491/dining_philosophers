@@ -16,7 +16,7 @@
 void	ft_init_table(t_table *table, char **argv)
 {
 	table->philo_nb = ft_atoi(argv[1]);
-	table->fork_nb = ft_atoi(argv[1]);
+	table->fork_nb = table->philo_nb;
 	table->time_before_dying = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
@@ -95,7 +95,6 @@ void	ft_init_threads(t_table *table)
 	i = 0;
 	while (i < table->philo_nb)
 	{
-		dprintf(2, "\tcoucou\n");
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
 		{
 			dprintf(2, "Attention tout le monde, je fail !\n");
@@ -112,4 +111,13 @@ void	ft_init_threads(t_table *table)
 			return ;
 		i += 1;
 	}
+/*
+	i = 0;
+	while (i < table->philo_nb)
+	{
+		pthread_mutex_destroy(table->fork_tab[i]);
+		i += 1;
+	}
+*/
+	
 }

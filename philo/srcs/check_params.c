@@ -38,10 +38,7 @@ int	ft_atoi(char *str)
 	if (str[i] == '+' || str[i] == '-')
 		return (0);
 	while (str[i] >= 48 && str[i] <= 57)
-	{
-		base = base * 10 + str[i] - 48;
-		i += 1;
-	}
+		base = base * 10 + str[i++] - 48;
 	if (base < INT_MIN || base > INT_MAX)
 		base = 0;
 	return (base);

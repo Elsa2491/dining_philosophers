@@ -12,51 +12,93 @@
 
 #include "../includes/philo.h"
 
-void	ft_take_forks(t_philo **philo)
+void	ft_drop_forks(t_philo **philo, int id);
+
+void	ft_eat(t_philo **philo, int id)
 {
-	dprintf(2, "\t->%s\n", __func__);
 	if (pthread_mutex_lock((*philo)->left_f) == 0)
-		printf("j'ai pris ma fourchette gauche\n");
+		printf("%d has taken a fork (right) ✅\n", id);
 	else // si la fourchette est occupee, je ne rentre pas dans le else parce que pthread ne retourne rien dans ce cas la, donc je reste coincee sur cette meme ligne
 		printf("error\n");
 	if (pthread_mutex_lock((*philo)->right_f) == 0)
-		printf("j'ai pris ma fourchette droite\n");
+		printf("%d has taken a fork (left) ✅\n", id);
 	else
 		printf("error\n");
+	usleep((*philo)->table->time_to_eat);
+	printf("%d is eating 🥄\n", id);
+	ft_drop_forks(philo, id);
 }
 
-void	ft_eat(t_philo **philo)
+/*
+void	ft_eat(t_philo **philo, int id)
 {
-	printf("is eating\n");
+	printf("%d is eating\n", id);
 	usleep((*philo)->table->time_to_eat);
 }
+*/
 
-void	ft_drop_forks(t_philo **philo)
+void	ft_drop_forks(t_philo **philo, int id)
 {
-	//usleep(3000000);
 	if (pthread_mutex_unlock((*philo)->right_f) == 0)
-		printf("j'ai repose ma fourchette droite\n");
+		printf("%d left fork lock ❌\n", id);
 	if (pthread_mutex_unlock((*philo)->left_f) == 0)
-		printf("j'ai repose ma fourchette gauche\n");
+		printf("%d right fork lock ❌\n", id);
 }
 
-void	ft_sleep(t_philo **philo)
+void	ft_sleep(t_philo **philo, int id)
 {
-	printf("is sleeping\n");
 	usleep((*philo)->table->time_to_sleep);
+	printf("%d is sleeping 😴\n", id);
 }
 
-void	*ft_routine(void *philo)
+void	ft_think(t_philo **philo, int id)
 {
-	dprintf(2, "\t->%s\n", __func__);
+	(void)philo;
+	printf("%d is thinking 💡\n", id);
+}
+void	*ft_routine(void *args)
+{
+	t_philo **philo_ptr;
+	t_philo	*philo;
+	t_table	*table;
+	int	id;
+
+	philo_ptr = (t_philo **)args;
+	philo = *philo_ptr;
+	table = philo->table;
+	id = philo_ptr - table->philo_tab;
+//	dprintf(2, "\t->%s\n", __func__);
+//	if (id % 2 == 0)
+//		ft_sleep(philo_ptr, id);
 	while (1)
 	{
-		ft_take_forks(philo);
-		ft_eat(philo);
-		ft_drop_forks(philo);
-		ft_sleep(philo);
-//		ft_think();
+//		dprintf(2, "id -> %d\n", id);
+//		ft_take_forks(philo_ptr, id);
+//		ft_eat(philo_ptr, id);
+//		ft_drop_forks(philo_ptr, id);
+		ft_think(philo_ptr, id);
+		ft_sleep(philo_ptr, id);
+		ft_eat(philo_ptr, id);
+//		ft_drop_forks(philo_ptr, id);
 	}
+}
+
+void	ft_handle_one_philo(t_table *table)
+{
+	if (table->time_before_dying < table->time_to_eat)
+	{
+		usleep(table->time_before_dying);
+		exit (1);
+	}
+}
+
+void	ft_destroy_threads(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_nb)
+                pthread_mutex_destroy(table->fork_tab[i++]);
 }
 
 int	main(int argc, char **argv)
@@ -68,6 +110,9 @@ int	main(int argc, char **argv)
 	ft_init_table(&table, argv);
 	ft_init_forks(&table);
 	ft_init_philos(&table);
+	if (table.philo_nb == 1)
+		ft_handle_one_philo(&table);
 	ft_init_threads(&table);
+	ft_destroy_threads(&table);
 	ft_free_tab(&table);
 }

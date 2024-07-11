@@ -37,10 +37,10 @@ void	ft_free_tab(t_table *table);
 
 //	Init
 void	ft_init_table(t_table *table, char **argv);
-
-//void	ft_init_philos_and_forks(t_table *table); //, t_philo *philo);
 void	ft_init_philos(t_table *table);
 void	ft_init_forks(t_table *table);
 void	ft_init_threads(t_table *table);
+
+//	Actions
 void	*ft_routine(void *philo);
 #endif
