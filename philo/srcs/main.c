@@ -92,7 +92,7 @@ void	ft_handle_one_philo(t_table *table)
 	}
 }
 
-void	ft_destroy_threads(t_table *table)
+void	ft_destroy_mutex(t_table *table)
 {
 	int	i;
 
@@ -113,6 +113,6 @@ int	main(int argc, char **argv)
 	if (table.philo_nb == 1)
 		ft_handle_one_philo(&table);
 	ft_init_threads(&table);
-	ft_destroy_threads(&table);
+	ft_destroy_mutex(&table);
 	ft_free_tab(&table);
 }
