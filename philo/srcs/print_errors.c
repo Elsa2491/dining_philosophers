@@ -45,6 +45,6 @@ void	ft_print_missing_param(int *tab)
 	printf(" Please, see the example below:\n");
 	printf("\033[%dm\e[1m%s\e\033[0m", 32, ARROW);
 	printf(" \033[%dm./philo\033[0m philo_nb time_before_dying", 33);
-	printf(" time_to_eat time_to_sleep\n");
+	printf(" time_to_eat time_to_sleep [number of meals]\n");
 	ft_print_footer();
 }

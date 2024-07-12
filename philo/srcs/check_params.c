@@ -29,7 +29,7 @@ static int	ft_is_num(char *str)
 int	ft_atoi(char *str)
 {
 	int	i;
-	long	base;
+	long long	base;
 
 	i = 0;
 	base = 0;
@@ -39,8 +39,11 @@ int	ft_atoi(char *str)
 		return (0);
 	while (str[i] >= 48 && str[i] <= 57)
 		base = base * 10 + str[i++] - 48;
-	if (base < INT_MIN || base > INT_MAX)
+	if (base < LONG_MIN || base > LONG_MAX)
+	{
+		dprintf(2, "TA MERE\n");
 		base = 0;
+	}
 	return (base);
 }
 
@@ -57,7 +60,7 @@ void	ft_check_params(int argc, char **argv)
 	tab = (int *)malloc(sizeof(int) * argc - 1);
 	if (!tab)
 		exit (1);
-	if (argc != 5)
+	if (argc != 5 && argc != 6)
 		ft_print_missing_param(tab);
 	while (++i < argc)
 		if (ft_is_num(argv[i]) && ft_atoi(argv[i]) > 0)

@@ -49,6 +49,8 @@ typedef struct s_table
 {
 	t_philo		**philo_tab;
 	pthread_mutex_t	**fork_tab;
+	pthread_mutex_t	*message;
+	pthread_mutex_t	*thread;
 	pthread_t	*thread_id;
 	int		philo_nb;
 	int		fork_nb;
@@ -57,6 +59,7 @@ typedef struct s_table
 	int		time_to_sleep;
 	int		time_to_think;
 	int		is_dead;
+	size_t		program_start;
 	pthread_mutex_t	**table_mutex;
 }	t_table;
 

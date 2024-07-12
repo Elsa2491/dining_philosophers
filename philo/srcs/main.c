@@ -12,44 +12,6 @@
 
 #include "../includes/philo.h"
 
-void	ft_drop_forks(t_philo **philo, int id);
-int	ft_usleep(int millisec);
-
-void	ft_eat(t_philo **philo, int id)
-{
-	if (pthread_mutex_lock((*philo)->left_f) == 0)
-		printf("%d has taken a fork (right) ✅\n", id);
-	else // si la fourchette est occupee, je ne rentre pas dans le else parce que pthread ne retourne rien dans ce cas la, donc je reste coincee sur cette meme ligne
-		printf("error\n");
-	if (pthread_mutex_lock((*philo)->right_f) == 0)
-		printf("%d has taken a fork (left) ✅\n", id);
-	else
-		printf("error\n");
-	printf("%d is eating 🥄\n", id);
-	ft_usleep((*philo)->table->time_to_eat);
-	ft_drop_forks(philo, id);
-}
-
-void	ft_drop_forks(t_philo **philo, int id)
-{
-	if (pthread_mutex_unlock((*philo)->right_f) == 0)
-		printf("%d left fork lock ❌\n", id);
-	if (pthread_mutex_unlock((*philo)->left_f) == 0)
-		printf("%d right fork lock ❌\n", id);
-}
-
-void	ft_sleep(t_philo **philo, int id)
-{
-	//dprintf(2, "\t->%s\n", __func__);
-	ft_usleep((*philo)->table->time_to_sleep);
-	printf("%d is sleeping 😴\n", id);
-}
-
-void	ft_think(t_philo **philo, int id)
-{
-	(void)philo;
-	printf("%d is thinking 💡\n", id);
-}
 void	*ft_routine(void *args)
 {
 	t_philo **philo_ptr;
@@ -61,15 +23,15 @@ void	*ft_routine(void *args)
 	philo = *philo_ptr;
 	table = philo->table;
 	id = philo_ptr - table->philo_tab;
-//	dprintf(2, "\t->%s\n", __func__);
-//	if (id % 2 == 0)
+	if (id % 2 == 0)
+		usleep(1);
 //		ft_sleep(philo_ptr, id);
 	while (1)
 	{
-//		dprintf(2, "id -> %d\n", id);
-		ft_think(philo_ptr, id);
+		ft_eat(table, philo_ptr, id);
+	//	ft_eat(philo_ptr, id);
 		ft_sleep(philo_ptr, id);
-		ft_eat(philo_ptr, id);
+		ft_think(philo_ptr, id);
 	}
 }
 
@@ -108,22 +70,23 @@ void	ft_putstr_fd(char *str, int fd)
 	write(fd, str, ft_strlen(str));
 }
 
-int	ft_get_current_time(void)
+size_t	ft_get_current_time(void)
 {
 	struct timeval	time;
-	int	convert_millisec;
-	int	avoid_division;
+	size_t	convert_millisec;
+	size_t	avoid_division;
 
 	if (gettimeofday(&time, NULL) == -1)
 		ft_putstr_fd("get_current_time() error\n", 2);
 	convert_millisec = time.tv_sec * 1000;
 	avoid_division = (time.tv_usec * 1001) >> 10;
+	//dprintf(2, "COUCOU \t%s -> %zu\n", __func__, (convert_millisec + avoid_division));
 	return (convert_millisec + avoid_division);
 }
 
-int	ft_usleep(int millisec)
+size_t	ft_usleep(size_t millisec)
 {
-	int	start;
+	size_t	start;
 
 	start = ft_get_current_time();
 	while ((ft_get_current_time() - start) < millisec)
@@ -143,6 +106,6 @@ int	main(int argc, char **argv)
 	if (table.philo_nb == 1)
 		ft_handle_one_philo(&table);
 	ft_init_threads(&table);
-	ft_destroy_mutex(&table);
+//	ft_destroy_mutex(&table);
 	ft_free_tab(&table);
 }

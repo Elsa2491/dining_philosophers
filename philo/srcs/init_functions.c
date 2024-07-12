@@ -39,7 +39,7 @@ void	ft_init_forks(t_table *table)
 	{
 		table->fork_tab[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		// check if malloc fail
-		dprintf(2, "table->fork_tab\t\t-> %d\n", i);
+//		dprintf(2, "table->fork_tab\t\t-> %d\n", i);
 		i += 1;
 	}
 }
@@ -63,16 +63,16 @@ void	ft_init_philos(t_table *table)
 		if (i == table->philo_nb - 1)
 		{
 			table->philo_tab[i]->left_f = table->fork_tab[i];
-			dprintf(2, "philo %d a la fourchette %d comme fourchette gauche ", i, i);
+//			dprintf(2, "philo %d a la fourchette %d comme fourchette gauche ", i, i);
 			table->philo_tab[i]->right_f = table->fork_tab[0];
-			dprintf(2, "et la fourchette 0 comme fourchette droite\n");
+//			dprintf(2, "et la fourchette 0 comme fourchette droite\n");
 		}
 		else
 		{
 			table->philo_tab[i]->right_f = table->fork_tab[i];
-			dprintf(2, "philo %d a la fourchette %d comme fourchette droite ", i, i);
+//			dprintf(2, "philo %d a la fourchette %d comme fourchette droite ", i, i);
 			table->philo_tab[i]->left_f = table->fork_tab[i + 1];
-			dprintf(2, "et la fourchette %d comme fourchette gauche\n", i + 1);
+//			dprintf(2, "et la fourchette %d comme fourchette gauche\n", i + 1);
 		}
 		i += 1;
 	}
@@ -87,12 +87,15 @@ void	ft_init_threads(t_table *table)
 	if (!table->thread_id)
 		return ;
 	// Mutex pour attendre la creation des threads
+/* -----------------------------------------------------------------------------
+	// Pourquoi j'ai fait ça ?
 	while (i < table->philo_nb)
 	{
 		pthread_mutex_init(table->fork_tab[i], NULL);
 		i += 1;
 	}
 	i = 0;
+----------------------------------------------------------------------------- */
 	while (i < table->philo_nb)
 	{
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
@@ -111,13 +114,4 @@ void	ft_init_threads(t_table *table)
 			return ;
 		i += 1;
 	}
-/*
-	i = 0;
-	while (i < table->philo_nb)
-	{
-		pthread_mutex_destroy(table->fork_tab[i]);
-		i += 1;
-	}
-*/
-	
 }
