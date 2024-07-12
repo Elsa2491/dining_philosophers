@@ -106,6 +106,7 @@ int	main(int argc, char **argv)
 	if (table.philo_nb == 1)
 		ft_handle_one_philo(&table);
 	ft_init_threads(&table);
-//	ft_destroy_mutex(&table);
+	ft_destroy_mutex(&table);
+	pthread_mutex_destroy(&table.message);
 	ft_free_tab(&table);
 }

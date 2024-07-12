@@ -87,7 +87,7 @@ void	ft_init_threads(t_table *table)
 	if (!table->thread_id)
 		return ;
 	// Mutex pour attendre la creation des threads
-/* -----------------------------------------------------------------------------
+///* -----------------------------------------------------------------------------
 	// Pourquoi j'ai fait ça ?
 	while (i < table->philo_nb)
 	{
@@ -95,7 +95,8 @@ void	ft_init_threads(t_table *table)
 		i += 1;
 	}
 	i = 0;
------------------------------------------------------------------------------ */
+//----------------------------------------------------------------------------- */
+	pthread_mutex_init(&table->message, NULL);
 	while (i < table->philo_nb)
 	{
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
