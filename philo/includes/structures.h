@@ -53,11 +53,11 @@ typedef struct s_table
 	pthread_t	*thread_id;
 	int		philo_nb;
 	int		fork_nb;
-	int		time_before_dying;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		time_to_think;
-	int		is_dead;
+	size_t		time_before_dying;
+	size_t		time_to_eat;
+	size_t		time_to_sleep;
+	size_t		time_to_think;
+	size_t		is_dead;
 	size_t		program_start;
 	pthread_mutex_t	**table_mutex;
 }	t_table;

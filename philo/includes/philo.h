@@ -45,11 +45,13 @@ void	ft_init_threads(t_table *table);
 //	Actions
 void	*ft_routine(void *philo);
 //void	ft_take_forks(t_philo **philo, int id);
-void	ft_drop_forks(t_philo **philo, int id);
+//void	ft_drop_forks(t_philo **philo, int id);
 //void	ft_eat(t_philo **philo, int id);
 void	ft_eat(t_table *table, t_philo **philo, int id);
-void	ft_sleep(t_philo **philo, int id);
-void	ft_think(t_philo **philo, int id);
+void	ft_sleep(t_table *table, t_philo **philo, int id);
+void	ft_think(t_table *table, t_philo **philo, int id);
+//void	ft_sleep(t_philo **philo, int id);
+//void	ft_think(t_philo **philo, int id);
 
 //	Time
 size_t	ft_usleep(size_t millisec);

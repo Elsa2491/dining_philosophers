@@ -24,14 +24,14 @@ void	*ft_routine(void *args)
 	table = philo->table;
 	id = philo_ptr - table->philo_tab;
 	if (id % 2 == 0)
-		usleep(1);
+		usleep(10);
 //		ft_sleep(philo_ptr, id);
 	while (1)
 	{
 		ft_eat(table, philo_ptr, id);
 	//	ft_eat(philo_ptr, id);
-		ft_sleep(philo_ptr, id);
-		ft_think(philo_ptr, id);
+		ft_sleep(table, philo_ptr, id);
+		ft_think(table, philo_ptr, id);
 	}
 }
 
