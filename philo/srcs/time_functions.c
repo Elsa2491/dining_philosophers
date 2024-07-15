@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 15:14:29 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 17:56:35 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ size_t	ft_get_current_time(void)
 	convert_millisec = time.tv_sec * 1000;
 	avoid_division = (time.tv_usec * 1048) >> 20;
 	return (convert_millisec + avoid_division);
+//	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 size_t	ft_usleep(size_t millisec)

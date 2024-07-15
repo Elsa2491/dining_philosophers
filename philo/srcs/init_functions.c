@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 16:47:07 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 18:12:16 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	ft_init_threads(t_table *table)
 //		pthread_mutex_init(table->philo_tab[i]->dead_lock, NULL);
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
 		{
-			dprintf(2, "Attention tout le monde, je fail !\n");
+			dprintf(2, "Attention tout le monde, je fail %d!\n", i);
 		// Attention, si le thread 3 fail, il faut join les threads crees et tout arreter
 			return ;
 		}
