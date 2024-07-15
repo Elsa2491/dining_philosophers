@@ -8,8 +8,8 @@ RESET :=\e[0m
 
 SRCS_PATH = $(shell find srcs -type d)
 
-SRCS = check_params.c print_errors.c free_functions.c init_functions.c \
-	actions.c main.c 
+SRCS = check_params.c print_functions.c free_functions.c init_functions.c \
+	actions.c time_functions.c main.c 
 
 vpath %.c $(foreach dir, $(SRCS_PATH), $(dir):)
 

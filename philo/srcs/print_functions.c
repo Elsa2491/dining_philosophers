@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_errors.c                                     :+:      :+:    :+:   */
+/*   print_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:31:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/25 09:39:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 11:15:35 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/*
-void	ft_putstr_fd(char *str, int fd)
+void	ft_print_message(char *str, t_table *table, int id)
 {
-	if (!str)
-		return ;
-	write(fd, str, ft_strlen(str));
+	size_t	timestamps;
+
+	pthread_mutex_lock(&table->message);
+	timestamps = ft_get_current_time() - table->program_start;
+	/*
+	   dprintf(2, "\t\t-> get_current_time in %s = %zu\n", __func__, ft_get_current_time());
+	   dprintf(2, "\t\t-> table->program_start %zu\n", table->program_start);
+	   dprintf(2, "\t\t-> time %zu\n", timestamps);
+	 */
+	printf("%zu %d %s\n", timestamps, id, str);
+	pthread_mutex_unlock(&table->message);
 }
-*/
 
 void	ft_print_header(void)
 {
