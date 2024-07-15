@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/02 12:52:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:05:53 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_philo
 {
 	struct s_table		*table;
 //	t_state		*state;
-//	size_t		program_start;
+	size_t		program_start;
 	pthread_mutex_t		*right_f;
 	pthread_mutex_t		*left_f;
 }	t_philo;
@@ -64,7 +64,7 @@ typedef struct s_table
 	size_t		time_to_think;
 	size_t		is_dead;
 //	int		dead_lock;
-	size_t		program_start;
+//	size_t		program_start;
 	pthread_mutex_t	**table_mutex;
 }	t_table;
 

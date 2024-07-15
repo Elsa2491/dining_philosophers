@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/02 19:05:18 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:06:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	ft_init_forks(t_table *table)
 	while (i < table->fork_nb)
 	{
 		table->fork_tab[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-		// check if malloc fail
-//		dprintf(2, "table->fork_tab\t\t-> %d\n", i);
+		if (!table->fork_tab[i])
+			return ;
+		pthread_mutex_init(table->fork_tab[i], NULL);
 		i += 1;
 	}
 }
@@ -62,6 +63,9 @@ void	ft_init_philos(t_table *table)
 		// if (!table->philo_tab[i])
 		//	ft_free_tab(table, i);
 		table->philo_tab[i]->table = table; 
+		table->philo_tab[i]->left_f = table->fork_tab[i]; 
+		table->philo_tab[i]->right_f = table->fork_tab[(i + 1) % table->philo_nb]; 
+		table->philo_tab[i]->program_start = ft_get_current_time(); 
 //		table->philo_tab[i]->table->program_start = ft_get_current_time(); 
 //		table->philo_tab[i]->is_dead = 0; 
 //		table->philo_tab[i]->program_start = ft_get_current_time(); 
@@ -92,7 +96,7 @@ void	ft_init_threads(t_table *table)
 	if (!table->thread_id)
 		return ;
 	// Mutex pour attendre la creation des threads
-///* -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
 	// Pourquoi j'ai fait ça ?
 	while (i < table->philo_nb)
 	{
@@ -102,12 +106,14 @@ void	ft_init_threads(t_table *table)
 		i += 1;
 	}
 	i = 0;
-//----------------------------------------------------------------------------- */
+----------------------------------------------------------------------------- */
 //	pthread_mutex_init(&table->message, NULL);
 //	pthread_mutex_init(&table->philo_tab[i]->dead_lock, NULL);
+	pthread_mutex_init(&table->message, NULL);
+	pthread_mutex_init(&table->dead_lock, NULL);
 	while (i < table->philo_nb)
 	{
-		table->philo_tab[i]->table->program_start = ft_get_current_time(); 
+//		table->philo_tab[i]->table->program_start = ft_get_current_time(); 
 //		pthread_mutex_init(table->philo_tab[i]->dead_lock, NULL);
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
 		{
