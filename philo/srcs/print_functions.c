@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:31:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 14:55:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:07:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_print_message(char *str, t_table *table, int id)
 	dprintf(2, "\t\t-> table->program_start %zu\n", table->program_start);
 	dprintf(2, "\t\t-> time %zu\n", timestamps);
 */
-	printf("%zu %d %s\n", timestamps / 1000, id, str);
+	printf("%zu %d %s\n", timestamps >> 10, id, str);
 	pthread_mutex_unlock(&table->message);
 }
 
