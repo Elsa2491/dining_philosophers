@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 
+/*
 typedef enum e_all_states
 {
 	EAT = 1,
@@ -37,10 +38,13 @@ typedef struct s_state
 	struct s_state	*prev;
 }	t_state;
 
+*/
+
 typedef struct s_philo
 {
 	struct s_table		*table;
-	t_state		*state;
+//	t_state		*state;
+//	size_t		program_start;
 	pthread_mutex_t		*right_f;
 	pthread_mutex_t		*left_f;
 }	t_philo;
@@ -50,6 +54,7 @@ typedef struct s_table
 	t_philo		**philo_tab;
 	pthread_mutex_t	**fork_tab;
 	pthread_mutex_t	message;
+	pthread_mutex_t	dead_lock;
 	pthread_t	*thread_id;
 	int		philo_nb;
 	int		fork_nb;
@@ -58,6 +63,7 @@ typedef struct s_table
 	size_t		time_to_sleep;
 	size_t		time_to_think;
 	size_t		is_dead;
+//	int		dead_lock;
 	size_t		program_start;
 	pthread_mutex_t	**table_mutex;
 }	t_table;

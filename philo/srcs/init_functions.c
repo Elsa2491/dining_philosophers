@@ -20,11 +20,13 @@ void	ft_init_table(t_table *table, char **argv)
 	table->time_before_dying = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
+//	table->program_start = ft_get_current_time();
 	dprintf(2, " Philo num:\t\t%d\n", table->philo_nb);
 	dprintf(2, " Fork num:\t\t%d\n", table->philo_nb);
-	dprintf(2, " Time before dying:\t%d\n", table->time_before_dying);
-	dprintf(2, " Time to eat:\t\t%d\n", table->time_to_eat);
-	dprintf(2, " Time to sleep:\t\t%d\n", table->time_to_sleep);
+	dprintf(2, " Time before dying:\t%zu\n", table->time_before_dying);
+	dprintf(2, " Time to eat:\t\t%zu\n", table->time_to_eat);
+	dprintf(2, " Time to sleep:\t\t%zu\n", table->time_to_sleep);
+//	dprintf(2, " Program start:\t\t%zu\n", table->program_start);
 }
 
 void	ft_init_forks(t_table *table)
@@ -60,6 +62,9 @@ void	ft_init_philos(t_table *table)
 		// if (!table->philo_tab[i])
 		//	ft_free_tab(table, i);
 		table->philo_tab[i]->table = table; 
+//		table->philo_tab[i]->table->program_start = ft_get_current_time(); 
+//		table->philo_tab[i]->is_dead = 0; 
+//		table->philo_tab[i]->program_start = ft_get_current_time(); 
 		if (i == table->philo_nb - 1)
 		{
 			table->philo_tab[i]->left_f = table->fork_tab[i];
@@ -92,13 +97,18 @@ void	ft_init_threads(t_table *table)
 	while (i < table->philo_nb)
 	{
 		pthread_mutex_init(table->fork_tab[i], NULL);
+		pthread_mutex_init(&table->message, NULL);
+		pthread_mutex_init(&table->dead_lock, NULL);
 		i += 1;
 	}
 	i = 0;
 //----------------------------------------------------------------------------- */
-	pthread_mutex_init(&table->message, NULL);
+//	pthread_mutex_init(&table->message, NULL);
+//	pthread_mutex_init(&table->philo_tab[i]->dead_lock, NULL);
 	while (i < table->philo_nb)
 	{
+		table->philo_tab[i]->table->program_start = ft_get_current_time(); 
+//		pthread_mutex_init(table->philo_tab[i]->dead_lock, NULL);
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
 		{
 			dprintf(2, "Attention tout le monde, je fail !\n");
