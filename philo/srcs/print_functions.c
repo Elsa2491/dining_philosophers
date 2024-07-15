@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:31:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 14:16:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:55:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,16 @@
 void	ft_print_message(char *str, t_table *table, int id)
 {
 	size_t	timestamps;
-//	int	i = 0;
 
 	pthread_mutex_lock(&table->message);
-//	while (i < table->philo_nb)
-//	{
-		timestamps = ft_get_current_time() - table->philo_tab[0]->program_start;
-//	   	dprintf(2, "\t\t-> ICI table->program_start %zu\n", table->philo_tab[0]->program_start);
-//		i += 1;
-//	}
+	timestamps = ft_get_current_time() - table->program_start;
+/*
 	dprintf(2, "\t\t-> get_current_time in %s = %zu\n", __func__, ft_get_current_time());
-	dprintf(2, "\t\t-> ICI table->program_start %zu\n", table->philo_tab[0]->program_start);
-//	   dprintf(2, "\t\t-> table->program_start %zu\n", table->program_start);
-	   dprintf(2, "\t\t-> time %zu\n", timestamps);
-	printf("%zu %d %s\n", timestamps, id, str);
+	dprintf(2, "\t\t-> ICI table->program_start %zu\n", table->program_start);
+	dprintf(2, "\t\t-> table->program_start %zu\n", table->program_start);
+	dprintf(2, "\t\t-> time %zu\n", timestamps);
+*/
+	printf("%zu %d %s\n", timestamps / 1000, id, str);
 	pthread_mutex_unlock(&table->message);
 }
 

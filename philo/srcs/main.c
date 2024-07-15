@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 13:12:40 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:32:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int	ft_no_one_died(t_table *table)
 {
 	int i = 0;
-	pthread_mutex_lock(&table->dead_lock);	
+	pthread_mutex_lock(&table->dead);	
 	while (i < table->philo_nb)
 	{
 		if (table->philo_tab[i]->table->is_dead == 1)
 		{
-			pthread_mutex_unlock(&table->dead_lock);	
+			pthread_mutex_unlock(&table->dead);
 			return (1);
 		}
 		i += 1;
 	}
-	pthread_mutex_unlock(&table->dead_lock);	
+	pthread_mutex_unlock(&table->dead);
 	return (0);
 }
 

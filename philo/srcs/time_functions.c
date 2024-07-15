@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 11:09:20 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 14:52:55 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ size_t	ft_get_current_time(void)
 		ft_putstr_fd("get_current_time() error\n", 2);
 		// free ce qu'il faut
 	convert_millisec = time.tv_sec * 1000;
-	avoid_division = (time.tv_usec * 1001) >> 10;
+	avoid_division = (time.tv_usec * 1048) >> 20;
+//	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 	//dprintf(2, "COUCOU \t%s -> %zu\n", __func__, (convert_millisec + avoid_division));
 	return (convert_millisec + avoid_division);
 }
