@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 13:10:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:58:22 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	ft_eat(t_table *table, t_philo **philo, int id)
 //	ft_print_message("is eating", table, philo, id);
 	ft_print_message("is eating", table, id);
 	ft_usleep((*philo)->table->time_to_eat);
-//	printf("%d is eating \n", id);
-//	ft_usleep((*philo)->table->time_to_eat);
 	ft_drop_forks(philo);
 }
 

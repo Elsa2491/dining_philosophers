@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 14:54:01 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/15 16:47:07 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,50 @@ void	ft_init_philos(t_table *table)
 	}
 }
 
+int	ft_is_dead(t_philo **philo, size_t time_before_dying)
+{
+// mutex meal;
+	(void)philo;
+	if (ft_get_current_time() >= time_before_dying)
+		return (1);
+	return (0);
+}
+
+int	ft_check_if_dead(t_table *table, t_philo **philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_nb)
+	{
+		if (ft_is_dead(philo, table->time_before_dying))
+		{
+			dprintf(2, "JE SUIS MORT\n");
+			return (1);
+		}
+		i += 1;
+	}
+	return (0);
+}
+
+void	*ft_monitoring(void *args)
+{
+	t_philo	**philo_ptr;
+	t_philo	*philo;
+	t_table	*table;
+//	int	id;
+
+	philo_ptr = (t_philo **)args;
+	philo = *philo_ptr;
+	table = philo->table;
+	while (1)
+	{
+		if (ft_check_if_dead(table, philo_ptr) == 1)
+			break;
+	}
+	return (args);
+}
+
 void	ft_init_threads(t_table *table)
 {
 	int	i;
@@ -106,11 +150,12 @@ void	ft_init_threads(t_table *table)
 ----------------------------------------------------------------------------- */
 //	pthread_mutex_init(&table->message, NULL);
 //	pthread_mutex_init(&table->philo_tab[i]->dead_lock, NULL);
+	if (pthread_create(&(table->monitoring), NULL, &ft_monitoring, &(table->philo_tab[i])) != 0)
+		dprintf(2, "Attention tout le monde, le monitoring fail !\n");
 	pthread_mutex_init(&table->message, NULL);
 	pthread_mutex_init(&table->dead, NULL);
 	while (i < table->philo_nb)
 	{
-//		table->philo_tab[i]->table->program_start = ft_get_current_time(); 
 //		pthread_mutex_init(table->philo_tab[i]->dead_lock, NULL);
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
 		{
@@ -121,6 +166,8 @@ void	ft_init_threads(t_table *table)
 		i += 1;	
 	} 
 	// Unlock mutex 
+	if (pthread_join(table->monitoring, NULL) != 0)
+		return ;
 	i = 0;
 	while (i < table->philo_nb)
 	{
