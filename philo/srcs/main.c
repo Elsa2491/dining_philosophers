@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/16 14:19:23 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/16 16:46:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	ft_no_one_died(t_table *table)
 
 	i = 0;
 	pthread_mutex_lock(&table->dead);	
+
 	while (i < table->philo_nb)
 	{
+//		dprintf(2, "%p\n", table->philo_tab[i]->table);
 		if (table->philo_tab[i]->table->is_dead == 1)
 		{
 			pthread_mutex_unlock(&table->dead);
@@ -45,7 +47,7 @@ void	*ft_routine(void *args)
 	table = philo->table;
 	id = philo_ptr - table->philo_tab + 1;
 //	if (id % 2 == 0)
-//		usleep(1);
+//		usleep(100);
 	while (!ft_no_one_died(table))
 	{
 		ft_eat(table, philo_ptr, id);

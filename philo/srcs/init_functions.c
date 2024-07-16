@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/16 14:24:30 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/16 16:42:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_init_table(t_table *table, char **argv)
 	else
 		table->nb_of_meals = -1;
 	table->program_start = ft_get_current_time();
-	table->last_meal = ft_get_current_time();
+//	table->last_meal = ft_get_current_time();
 	dprintf(2, " Philo num:\t\t%d\n", table->philo_nb);
 	dprintf(2, " Fork num:\t\t%d\n", table->fork_nb);
 	dprintf(2, " Time before dying:\t%zu\n", table->time_before_dying);
@@ -69,6 +69,9 @@ void	ft_init_philos(t_table *table)
 		// if (!table->philo_tab[i])
 		//	ft_free_tab(table, i);
 		table->philo_tab[i]->table = table;
+		table->philo_tab[i]->nb_of_meals_eaten = 0;
+		table->philo_tab[i]->last_meal = ft_get_current_time();
+		dprintf(2, " Last meal:\t\t%zu\n", table->philo_tab[i]->last_meal);
 		table->philo_tab[i]->left_f = table->fork_tab[i];
 		table->philo_tab[i]->right_f = table->fork_tab[(i + 1) % table->philo_nb];
 //		table->philo_tab[i]->is_dead = 0; 
@@ -90,14 +93,16 @@ void	ft_init_philos(t_table *table)
 	}
 }
 
-int	ft_is_dead(t_table *table, t_philo **philo, size_t time_before_dying, int id)
+int	ft_is_dead(t_table *table, t_philo **philo, size_t dead) //, size_t time_before_dying)
 {
 // mutex meal;
-	(void)philo;
-	(void)id;
+	
 	pthread_mutex_lock(&table->meal);
-	if (ft_get_current_time() - (*philo)->table->last_meal >= time_before_dying && (*philo)->table->is_eating == 0)
+	dead -= (*philo)->last_meal;
+//	dprintf(2, "last_meal de chaque philo = %zu\n", (*philo)->last_meal);
+	if (dead > table->time_before_dying) // && (*philo)->table->is_eating == 0)
 	{
+
 		pthread_mutex_unlock(&table->meal);
 		dprintf(2, "\t\tOUI\n");
 		return (1);
@@ -106,43 +111,46 @@ int	ft_is_dead(t_table *table, t_philo **philo, size_t time_before_dying, int id
 	return (0);
 }
 
-int	ft_check_if_dead(t_table *table, t_philo **philo, int id)
+int	ft_check_if_dead(t_table *table, t_philo **philo)
 {
-//	int	i;
+	int	i;
+	size_t	dead;
 
-//	i = 0;
+	i = 0;
 	pthread_mutex_lock(&table->dead);
-//	while (i < table->philo_nb)
-//	{
-		if (ft_is_dead(table, philo, table->time_before_dying, id))
+	dead = ft_get_current_time(); // - table->time_before_dying;
+//	dprintf(2, "dead = %zu\n", dead);
+	while (i < table->philo_nb)
+	{
+		if (ft_is_dead(table, &philo[i], dead)) // , philo, table->time_before_dying))
 		{
+			table->is_dead = 1;
 			pthread_mutex_unlock(&table->dead);
 			dprintf(2, "JE SUIS MORT\n");
 			return (1);
 		}
-//		i += 1;
-//	}
+		i += 1;
+	}
 		pthread_mutex_unlock(&table->dead);
 	return (0);
 }
 
-void	*ft_monitoring(void *args)
+void	ft_monitoring(t_table *table, t_philo **philo)
 {
-	t_philo	**philo_ptr;
-	t_philo	*philo;
-	t_table	*table;
-	int	id;
+//	t_philo	**philo_ptr;
+//	t_philo	*philo;
+	//t_table	*table;
+//	int	id;
 
-	philo_ptr = (t_philo **)args;
-	philo = *philo_ptr;
-	table = philo->table;
-	id = philo_ptr - table->philo_tab+ 1;
+//	philo_ptr = (t_philo **)args;
+//	philo = *philo_ptr;
+//	table = philo->table;
+//	id = philo_ptr - table->philo_tab+ 1;
 	while (1)
 	{
-		if (ft_check_if_dead(table, philo_ptr, id) == 1)
+		if (ft_check_if_dead(table, philo) == 1)
 			break;
 	}
-	return (args);
 }
 
 void	ft_init_threads(t_table *table)
@@ -167,8 +175,8 @@ void	ft_init_threads(t_table *table)
 ----------------------------------------------------------------------------- */
 //	pthread_mutex_init(&table->message, NULL);
 //	pthread_mutex_init(&table->philo_tab[i]->dead_lock, NULL);
-	if (pthread_create(&(table->monitoring), NULL, &ft_monitoring, &(table->philo_tab[i])) != 0)
-		dprintf(2, "Attention tout le monde, le monitoring fail !\n");
+//	if (pthread_create(&(table->monitoring), NULL, &ft_monitoring, &(table->philo_tab[i])) != 0)
+//		dprintf(2, "Attention tout le monde, le monitoring fail !\n");
 	pthread_mutex_init(&table->message, NULL);
 	pthread_mutex_init(&table->dead, NULL);
 	pthread_mutex_init(&table->meal, NULL);
@@ -184,8 +192,11 @@ void	ft_init_threads(t_table *table)
 		i += 1;	
 	} 
 	// Unlock mutex 
-	if (pthread_join(table->monitoring, NULL) != 0)
-		return ;
+//	if (pthread_join(table->monitoring, NULL) != 0)
+//		return ;
+//	i = 0;
+//	while (i < table->philo_nb)	
+	ft_monitoring(table, table->philo_tab);
 	i = 0;
 	while (i < table->philo_nb)
 	{
