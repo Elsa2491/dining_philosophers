@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 17:56:35 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:45:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ size_t	ft_usleep(size_t millisec)
 
 	start = ft_get_current_time();
 	while ((ft_get_current_time() - start) < millisec)
-		usleep(500);
+		usleep(200);
 	return (0);
 }

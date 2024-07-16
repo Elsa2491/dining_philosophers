@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/27 13:08:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:44:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_is_num(char *str)
 
 int	ft_atoi(char *str)
 {
-	int	i;
+	int			i;
 	long long	base;
 
 	i = 0;
@@ -40,10 +40,7 @@ int	ft_atoi(char *str)
 	while (str[i] >= 48 && str[i] <= 57)
 		base = base * 10 + str[i++] - 48;
 	if (base < LONG_MIN || base > LONG_MAX)
-	{
-		dprintf(2, "TA MERE\n");
 		base = 0;
-	}
 	return (base);
 }
 

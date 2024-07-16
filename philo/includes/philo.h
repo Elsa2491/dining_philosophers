@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:37:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/15 13:11:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/16 13:35:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	ft_think(t_table *table, t_philo **philo, int id);
 void	ft_print_message(char *str, t_table *table,int id);
 //void	ft_sleep(t_philo **philo, int id);
 //void	ft_think(t_philo **philo, int id);
+
+//	Check if someone died
+int	ft_no_one_died(t_table *table);
 
 //	Time
 size_t	ft_usleep(size_t millisec);
