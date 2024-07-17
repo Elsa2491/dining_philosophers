@@ -6,24 +6,21 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/16 16:46:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/17 17:27:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-// dead_loop
 int	ft_no_one_died(t_table *table)
 {
-//	dprintf(2, "\t->%s\n", __func__);
 	int	i;
 
 	i = 0;
+	//dprintf(2, "\t%s\n", __func__);
 	pthread_mutex_lock(&table->dead);	
-
 	while (i < table->philo_nb)
 	{
-//		dprintf(2, "%p\n", table->philo_tab[i]->table);
 		if (table->philo_tab[i]->table->is_dead == 1)
 		{
 			pthread_mutex_unlock(&table->dead);
@@ -52,7 +49,7 @@ void	*ft_routine(void *args)
 	{
 		ft_eat(table, philo_ptr, id);
 		ft_sleep(table, philo_ptr, id);
-		ft_think(table, philo_ptr, id);
+		ft_think(table, id);
 	}
 	return (philo);
 }
@@ -84,13 +81,12 @@ int	main(int argc, char **argv)
 	ft_init_table(&table, argv);
 	ft_init_forks(&table);
 	ft_init_philos(&table);
-	if (table.philo_nb == 1)
-		ft_handle_one_philo(&table);
+	//if (table.philo_nb == 1)
+	//	ft_handle_one_philo(&table);
 	ft_init_threads(&table);
 	ft_destroy_mutex(&table);
 	pthread_mutex_destroy(&table.message);
 	pthread_mutex_destroy(&table.dead);
 	pthread_mutex_destroy(&table.meal);
-//	pthread_mutex_destroy(&table.dead_lock);
 	ft_free_tab(&table);
 }

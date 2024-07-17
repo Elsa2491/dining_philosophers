@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:31:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/16 13:33:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/17 15:41:35 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	ft_print_message(char *str, t_table *table, int id)
 	dprintf(2, "\t\t-> time %zu\n", timestamps);
 */
 	if (!ft_no_one_died(table))
-		printf("%zu %d %s\n", timestamps >> 10, id, str);
-	//printf("%zu %d %s\n", timestamps, id, str);
+		printf("%zu %d %s\n", timestamps, id, str);
 	pthread_mutex_unlock(&table->message);
 }
 
@@ -52,9 +51,9 @@ void	ft_print_missing_param(int *tab)
 	printf(" It seems something went wrong.\n");
 	printf(" You must enter at least 4 parameters.\n");
 	printf(" Each parameter should be a long > 0.");
-	printf(" Please, see the example below:\n");
+	printf(" Please, see the example below:\n\n");
 	printf("\033[%dm\e[1m%s\e\033[0m", 32, ARROW);
-	printf(" \033[%dm./philo\033[0m philo_nb time_before_dying", 33);
+	printf(" \033[%dm./philo\033[0m philo_nb time_to_die", 33);
 	printf(" time_to_eat time_to_sleep [number of meals]\n");
 	ft_print_footer();
 }
