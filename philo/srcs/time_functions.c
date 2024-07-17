@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/16 16:27:47 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/17 19:44:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,9 @@ static void	ft_putstr_fd(char *str, int fd)
 size_t	ft_get_current_time(void)
 {
 	struct timeval		time;
-//	size_t				convert_millisec;
-//	size_t				avoid_division;
 
 	if (gettimeofday(&time, NULL) == -1)
 		ft_putstr_fd("get_current_time() error\n", 2);
-		// free ce qu'il faut
-//	convert_millisec = time.tv_sec * 1000;
-//	avoid_division = (time.tv_usec * 1048) >> 20;
-//	return (convert_millisec + avoid_division);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
@@ -50,6 +44,6 @@ size_t	ft_usleep(size_t millisec)
 
 	start = ft_get_current_time();
 	while ((ft_get_current_time() - start) < millisec)
-		usleep(200);
+		usleep(1000);
 	return (0);
 }

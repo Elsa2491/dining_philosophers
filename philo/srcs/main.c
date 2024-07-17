@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/17 17:27:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/17 20:38:51 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	*ft_routine(void *args)
 	philo = *philo_ptr;
 	table = philo->table;
 	id = philo_ptr - table->philo_tab + 1;
-//	if (id % 2 == 0)
-//		usleep(100);
+	// quand il y aura un mutex dans init avant les threads, mettre un mutex et le relacher
+	if ((id & 1) == 0)
+		usleep(100);
 	while (!ft_no_one_died(table))
 	{
 		ft_eat(table, philo_ptr, id);

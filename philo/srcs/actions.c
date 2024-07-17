@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/17 17:27:17 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/17 19:25:37 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	ft_take_forks(t_table *table, t_philo **philo, int id)
 	{
 		if (table->time_before_dying < table->time_to_eat)
 			ft_usleep(table->time_before_dying);
-		else
-			ft_usleep(table->time_to_eat);
+		printf("Je suis mort ta mere\n");
 		pthread_mutex_unlock((*philo)->left_f);
 		exit (1);
 	}

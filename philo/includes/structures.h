@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/16 15:29:57 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/17 20:26:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ typedef struct s_philo
 	pthread_mutex_t		*left_f;
 	size_t		last_meal;
 	int		nb_of_meals_eaten;
+	// int		id;
 //	pthread_mutex_t		*message;
 //	pthread_mutex_t		*dead;
 }	t_philo;
 
 typedef struct s_table
 {
+	size_t		program_start;
 	t_philo		**philo_tab;
 	pthread_mutex_t	**fork_tab;
 	pthread_mutex_t	message;
@@ -73,7 +75,7 @@ typedef struct s_table
 	//int		is_eating;
 	//int		nb_of_meals_eaten;
 	int		is_dead;
-	size_t		program_start;
+
 	pthread_mutex_t	**mutex_tab;
 }	t_table;
 
