@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/17 19:25:37 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:28:13 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_take_forks(t_table *table, t_philo **philo, int id)
 {
+	size_t	timestamps;
+
+	timestamps = ft_get_current_time() - table->program_start;
 	if (pthread_mutex_lock((*philo)->left_f) == 0)
 		ft_print_message("has taken a fork", table, id);
 	else 
@@ -22,7 +25,7 @@ void	ft_take_forks(t_table *table, t_philo **philo, int id)
 	{
 		if (table->time_before_dying < table->time_to_eat)
 			ft_usleep(table->time_before_dying);
-		printf("Je suis mort ta mere\n");
+		printf("%zu %d is died\n", timestamps, id);
 		pthread_mutex_unlock((*philo)->left_f);
 		exit (1);
 	}

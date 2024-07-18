@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/17 20:26:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:32:09 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_table
 	pthread_mutex_t	message;
 	pthread_mutex_t	meal;
 	pthread_mutex_t	dead;
+	pthread_mutex_t	main_thread;
 	pthread_t	*thread_id;
 //	pthread_t	monitoring;
 	int		philo_nb;

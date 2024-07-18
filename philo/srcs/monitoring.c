@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/17 20:13:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:20:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_is_dead(t_table *table, t_philo **philo, size_t dead)
 	return (0);
 }
 
-int	ft_check_if_dead(t_table *table, t_philo **philo)
+int	ft_check_if_dead(t_table *table, t_philo **philo, int id)
 {
 	int		i;
 	size_t	dead;
@@ -42,7 +42,9 @@ int	ft_check_if_dead(t_table *table, t_philo **philo)
 			pthread_mutex_lock(&table->dead);
 			table->is_dead = 1;
 			pthread_mutex_unlock(&table->dead);
-			dprintf(2, "JE SUIS MORT\n");
+			pthread_mutex_lock(&table->message);
+			printf("%zu %d is died\n", ft_get_current_time() - table->program_start, id);
+			pthread_mutex_unlock(&table->message);
 			return (1);
 		}
 		i += 1;
@@ -53,7 +55,10 @@ int	ft_check_if_dead(t_table *table, t_philo **philo)
 
 void	ft_monitoring(t_table *table, t_philo **philo)
 {
+	int	id;
+
+	id = philo - table->philo_tab + 1;
 	while (1)
-		if (ft_check_if_dead(table, philo) == 1)
+		if (ft_check_if_dead(table, philo, id) == 1)
 			break;
 }

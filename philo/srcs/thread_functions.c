@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/17 20:30:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 10:33:57 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_init_threads(t_table *table)
 		return ;
 	// Mutex pour attendre la creation des threads
 	ft_init_mutexes(table);
+	pthread_mutex_init(&table->main_thread, NULL);
+	pthread_mutex_lock(&table->main_thread);
 	while (i < table->philo_nb)
 	{
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
@@ -53,7 +55,8 @@ void	ft_init_threads(t_table *table)
 		i += 1;
 	}
 	// init le temps de depart ici
-// table->program_start = ft_get_current_time();
+	table->program_start = ft_get_current_time();
+	pthread_mutex_unlock(&table->main_thread);
 	// Unlock mutex 
 	ft_monitoring(table, table->philo_tab);
 	ft_join_threads(table);
