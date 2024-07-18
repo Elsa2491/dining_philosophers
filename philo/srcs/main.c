@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 12:50:16 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 14:21:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_destroy_mutex(t_table *table)
 
 	i = 0;
 	while (i < table->philo_nb)
-		pthread_mutex_destroy(table->fork_tab[i++]);
+		pthread_mutex_destroy((&table->fork_tab[i++]));
 }
 
 int	main(int argc, char **argv)

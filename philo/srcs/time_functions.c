@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 11:40:56 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:08:32 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,18 @@ size_t	ft_usleep(size_t millisec)
 		usleep(100);
 	return (0);
 }
+
+/*
+void	ft_test(size_t time, t_philo *philo)
+{
+	size_t	tmp;
+
+	tmp = ft_get_current_time();
+	while (1)
+	{
+		usleep(500);
+		if (
+	}
+	
+}
+*/
