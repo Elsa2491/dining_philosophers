@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 14:36:12 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 17:15:58 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_init_table(t_table *table, char **argv)
 		table->nb_of_meals = ft_atoi(argv[5]);
 	else
 		table->nb_of_meals = -1;
+	dprintf(2, "\tnb of meals %d\n", table->nb_of_meals);
 }
 
 void	ft_init_forks(t_table *table)
