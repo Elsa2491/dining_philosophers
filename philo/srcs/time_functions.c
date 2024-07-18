@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 11:19:47 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:40:56 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ size_t	ft_get_current_time(void)
 	size_t	convert_millisec;
 	size_t	avoid_division;
 */
-
 	if (gettimeofday(&time, NULL) == -1)
 		ft_putstr_fd("get_current_time() error\n", 2);
 /*

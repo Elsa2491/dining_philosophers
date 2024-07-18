@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 10:33:01 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:42:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_no_one_died(t_table *table)
 
 	i = 0;
 	//dprintf(2, "\t%s\n", __func__);
-	pthread_mutex_lock(&table->dead);	
+	pthread_mutex_lock(&table->dead);
 	while (i < table->philo_nb)
 	{
 		if (table->philo_tab[i]->table->is_dead == 1)
@@ -34,19 +34,18 @@ int	ft_no_one_died(t_table *table)
 
 void	*ft_routine(void *args)
 {
-	t_philo **philo_ptr;
+	t_philo	**philo_ptr;
 	t_philo	*philo;
 	t_table	*table;
-	int	id;
+	int		id;
 
 	philo_ptr = (t_philo **)args;
 	philo = *philo_ptr;
 	table = philo->table;
 	id = philo_ptr - table->philo_tab + 1;
-	// quand il y aura un mutex dans init avant les threads, mettre un mutex et le relacher
-	pthread_mutex_lock(&table->main_thread);	
-	pthread_mutex_unlock(&table->main_thread);	
-	if (!(id & 1)) //== 0)
+	pthread_mutex_lock(&table->main_thread);
+	pthread_mutex_unlock(&table->main_thread);
+	if (!(id & 1))
 		usleep(100);
 	while (!ft_no_one_died(table))
 	{
@@ -55,15 +54,6 @@ void	*ft_routine(void *args)
 		ft_think(table, id);
 	}
 	return (philo);
-}
-
-void	ft_handle_one_philo(t_table *table)
-{
-	if (table->time_before_dying < table->time_to_eat)
-	{
-		ft_usleep(table->time_before_dying);
-		exit (1);
-	}
 }
 
 void	ft_destroy_mutex(t_table *table)
@@ -84,8 +74,6 @@ int	main(int argc, char **argv)
 	ft_init_table(&table, argv);
 	ft_init_forks(&table);
 	ft_init_philos(&table);
-	//if (table.philo_nb == 1)
-	//	ft_handle_one_philo(&table);
 	ft_init_threads(&table);
 	ft_destroy_mutex(&table);
 	pthread_mutex_destroy(&table.message);

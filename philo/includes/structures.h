@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 10:32:09 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:38:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_philo
 	pthread_mutex_t		*right_f;
 	pthread_mutex_t		*left_f;
 	size_t		last_meal;
-	int		nb_of_meals_eaten;
+	int			nb_of_meals_eaten;
 	// int		id;
 //	pthread_mutex_t		*message;
 //	pthread_mutex_t		*dead;
@@ -63,19 +63,18 @@ typedef struct s_table
 	pthread_mutex_t	dead;
 	pthread_mutex_t	main_thread;
 	pthread_t	*thread_id;
-//	pthread_t	monitoring;
-	int		philo_nb;
-	int		fork_nb;
+	int			philo_nb;
+	int			fork_nb;
 	size_t		time_before_dying;
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
 	size_t		time_to_think;
-	int		nb_of_meals;
+	int			nb_of_meals;
 
 	//size_t		last_meal;
 	//int		is_eating;
 	//int		nb_of_meals_eaten;
-	int		is_dead;
+	int			is_dead;
 
 	pthread_mutex_t	**mutex_tab;
 }	t_table;

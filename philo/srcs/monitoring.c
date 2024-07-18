@@ -6,12 +6,11 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 10:20:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:40:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
 
 int	ft_is_dead(t_table *table, t_philo **philo, size_t dead)
 {
@@ -32,9 +31,7 @@ int	ft_check_if_dead(t_table *table, t_philo **philo, int id)
 	size_t	dead;
 
 	i = 0;
-//	pthread_mutex_lock(&table->dead);
 	dead = ft_get_current_time();
-//	dprintf(2, "dead = %zu\n", dead);
 	while (i < table->philo_nb)
 	{
 		if (ft_is_dead(table, &philo[i], dead))
@@ -43,13 +40,12 @@ int	ft_check_if_dead(t_table *table, t_philo **philo, int id)
 			table->is_dead = 1;
 			pthread_mutex_unlock(&table->dead);
 			pthread_mutex_lock(&table->message);
-			printf("%zu %d is died\n", ft_get_current_time() - table->program_start, id);
+			printf("%zu %d is died\n", dead - table->program_start, id);
 			pthread_mutex_unlock(&table->message);
 			return (1);
 		}
 		i += 1;
 	}
-//		pthread_mutex_unlock(&table->dead);
 	return (0);
 }
 
@@ -60,5 +56,5 @@ void	ft_monitoring(t_table *table, t_philo **philo)
 	id = philo - table->philo_tab + 1;
 	while (1)
 		if (ft_check_if_dead(table, philo, id) == 1)
-			break;
+			break ;
 }

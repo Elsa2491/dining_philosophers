@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 10:34:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:24:58 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	ft_init_table(t_table *table, char **argv)
 		table->nb_of_meals = ft_atoi(argv[5]);
 	else
 		table->nb_of_meals = -1;
-	// a mettre apres l'init des threads
-//	table->program_start = ft_get_current_time();
 }
 
 void	ft_init_forks(t_table *table)
