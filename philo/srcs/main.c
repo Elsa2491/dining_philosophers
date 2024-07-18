@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 11:42:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 12:50:16 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_no_one_died(t_table *table)
 	pthread_mutex_lock(&table->dead);
 	while (i < table->philo_nb)
 	{
-		if (table->philo_tab[i]->table->is_dead == 1)
+		if (table->philo_tab[i].table->is_dead == 1)
 		{
 			pthread_mutex_unlock(&table->dead);
 			return (1);
@@ -34,14 +34,12 @@ int	ft_no_one_died(t_table *table)
 
 void	*ft_routine(void *args)
 {
-	t_philo	**philo_ptr;
-	t_philo	*philo;
+	t_philo	*philo_ptr;
 	t_table	*table;
 	int		id;
 
-	philo_ptr = (t_philo **)args;
-	philo = *philo_ptr;
-	table = philo->table;
+	philo_ptr = (t_philo *)args;
+	table = philo_ptr->table;
 	id = philo_ptr - table->philo_tab + 1;
 	pthread_mutex_lock(&table->main_thread);
 	pthread_mutex_unlock(&table->main_thread);
@@ -53,7 +51,7 @@ void	*ft_routine(void *args)
 		ft_sleep(table, philo_ptr, id);
 		ft_think(table, id);
 	}
-	return (philo);
+	return (philo_ptr);
 }
 
 void	ft_destroy_mutex(t_table *table)

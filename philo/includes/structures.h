@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 11:38:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 12:35:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_philo
 typedef struct s_table
 {
 	size_t		program_start;
-	t_philo		**philo_tab;
+	t_philo		*philo_tab;
 	pthread_mutex_t	**fork_tab;
 	pthread_mutex_t	message;
 	pthread_mutex_t	meal;
