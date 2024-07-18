@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 11:28:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:31:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ static void	ft_init_mutexes(t_table *table)
 	pthread_mutex_init(&table->message, NULL);
 	pthread_mutex_init(&table->dead, NULL);
 	pthread_mutex_init(&table->meal, NULL);
+}
+
+void	ft_destroy_mutexes(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_nb)
+		pthread_mutex_destroy((&table->fork_tab[i++]));
 }
 
 static void	ft_join_threads(t_table *table)
@@ -58,3 +67,4 @@ void	ft_init_threads(t_table *table)
 	ft_monitoring(table, table->philo_tab);
 	ft_join_threads(table);
 }
+

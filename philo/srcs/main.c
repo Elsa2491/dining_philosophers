@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 14:21:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:31:42 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,6 @@ void	*ft_routine(void *args)
 	return (philo_ptr);
 }
 
-void	ft_destroy_mutex(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->philo_nb)
-		pthread_mutex_destroy((&table->fork_tab[i++]));
-}
-
 int	main(int argc, char **argv)
 {
 	t_table	table;
@@ -73,7 +64,7 @@ int	main(int argc, char **argv)
 	ft_init_forks(&table);
 	ft_init_philos(&table);
 	ft_init_threads(&table);
-	ft_destroy_mutex(&table);
+	ft_destroy_mutexes(&table);
 	pthread_mutex_destroy(&table.message);
 	pthread_mutex_destroy(&table.dead);
 	pthread_mutex_destroy(&table.meal);

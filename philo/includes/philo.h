@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:37:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 12:56:36 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:34:47 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <limits.h>
 # include <string.h>
-//# include <pthread.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/time.h>
@@ -35,6 +34,7 @@ void	ft_print_missing_param(int *tab);
 
 //	Clean
 void	ft_free_tab(t_table *table);
+void	ft_destroy_mutexes(t_table *table);
 
 //	Init
 void	ft_init_table(t_table *table, char **argv);
@@ -56,4 +56,5 @@ int		ft_no_one_died(t_table *table);
 //	Time
 size_t	ft_usleep(size_t millisec);
 size_t	ft_get_current_time(void);
+
 #endif

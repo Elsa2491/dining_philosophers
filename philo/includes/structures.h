@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 14:17:05 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:40:03 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,9 @@
 
 # include <pthread.h>
 
-/*
-typedef enum e_all_states
-{
-	EAT = 1,
-	SLEEP,
-	THINK,
-	DEAD,
-}	t_all_states;
-
-typedef struct s_time
-{
-	time_t	sec;
-	long	nano_sec;
-}	t_time;
-
-typedef struct s_state
-{
-	t_all_states	type;
-	//	pthread_mutex_t	state_mutex;
-	struct s_state	*next;
-	struct s_state	*prev;
-}	t_state;
-
-*/
-
 typedef struct s_philo
 {
 	struct s_table		*table;
-//	t_state		*state;
 	pthread_mutex_t		*right_f;
 	pthread_mutex_t		*left_f;
 	size_t		last_meal;
@@ -70,13 +44,10 @@ typedef struct s_table
 	size_t		time_to_sleep;
 	size_t		time_to_think;
 	int			nb_of_meals;
-
 	//size_t		last_meal;
 	//int		is_eating;
 	//int		nb_of_meals_eaten;
 	int			is_dead;
-
-	pthread_mutex_t	**mutex_tab;
 }	t_table;
 
 #endif
