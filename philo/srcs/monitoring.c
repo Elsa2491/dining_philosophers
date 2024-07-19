@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 18:15:40 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/19 16:26:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,31 @@ int	ft_check_if_dead(t_table *table, t_philo *philo, int id)
 
 	i = 0;
 	dead = ft_get_current_time();
+/*
+	if (table->philo_nb == 1)
+	{
+		//ft_print_message("has taken a fork", table, id);
+		pthread_mutex_lock(&table->message);
+		ft_print_message("has taken a fork", table, id);
+		printf("%zu %d died iiiii\n", dead - table->program_start, id);
+		pthread_mutex_unlock(&table->message);
+		ft_destroy_mutexes(table);
+		ft_free_tab(table);
+		exit (1);
+	}
+*/
 	while (i < table->philo_nb)
 	{
 		if (ft_is_dead(table, philo, dead))
 		{
+			
+			if (table->philo_nb == 1)
+				printf("has taken a fork\n");
 			pthread_mutex_lock(&table->dead);
 			table->is_dead = 1;
 			pthread_mutex_unlock(&table->dead);
 			pthread_mutex_lock(&table->message);
-			printf("%zu %d is died\n", dead - table->program_start, id);
+			printf("%zu %d died\n", dead - table->program_start, id);
 			pthread_mutex_unlock(&table->message);
 			return (1);
 		}

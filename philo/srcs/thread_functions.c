@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 16:31:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/19 15:06:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,3 @@ void	ft_init_threads(t_table *table)
 	ft_monitoring(table, table->philo_tab);
 	ft_join_threads(table);
 }
-

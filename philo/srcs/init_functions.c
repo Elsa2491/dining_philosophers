@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 17:15:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/19 14:50:37 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_init_table(t_table *table, char **argv)
 		table->nb_of_meals = ft_atoi(argv[5]);
 	else
 		table->nb_of_meals = -1;
-	dprintf(2, "\tnb of meals %d\n", table->nb_of_meals);
+//	dprintf(2, "\tnb of meals %d\n", table->nb_of_meals);
 }
 
 void	ft_init_forks(t_table *table)
@@ -44,6 +44,7 @@ void	ft_init_philos(t_table *table)
 
 	i = 0;
 	table->philo_tab = (t_philo *)malloc(sizeof(t_philo) * table->philo_nb);
+	//dprintf(2, "nb de philos %d\n", table->philo_nb);
 	if (!table->philo_tab)
 		return ;
 	while (i < table->philo_nb)
