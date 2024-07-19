@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/19 16:23:54 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/19 17:14:47 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_no_one_died(t_table *table)
 	int	i;
 
 	i = 0;
-	//dprintf(2, "\t%s\n", __func__);
 	pthread_mutex_lock(&table->dead);
 	while (i < table->philo_nb)
 	{
@@ -54,6 +53,27 @@ void	*ft_routine(void *args)
 	return (philo_ptr);
 }
 
+void	*ft_handle_one_philo(void *args)
+{
+	t_philo	*philo_ptr;
+	t_table	*table;
+	int		id;
+
+	philo_ptr = (t_philo *)args;
+	table = philo_ptr->table;
+	id = philo_ptr - table->philo_tab + 1;
+	dprintf(2, "NIQUE TA MERE %d\n", id);
+	return (philo_ptr);
+}
+
+void	ft_is_only_one_philo(t_table *table)
+{
+	dprintf(2, "NIQUE TA PUTAIN DE MERE\n");
+	if (pthread_create(&(table->one_philo), NULL, &ft_handle_one_philo, &(table->one_philo)) != 0)
+		dprintf(2, "je fail sa mere\n");
+	dprintf(2, "NIQUE TA PUTAIN DE MERE\n");
+}
+
 int	main(int argc, char **argv)
 {
 	t_table	table;
@@ -63,6 +83,8 @@ int	main(int argc, char **argv)
 	ft_init_table(&table, argv);
 	ft_init_forks(&table);
 	ft_init_philos(&table);
+	if (table.philo_nb == 1)
+		ft_is_only_one_philo(&table);
 	ft_init_threads(&table);
 	ft_destroy_mutexes(&table);
 	pthread_mutex_destroy(&table.message);

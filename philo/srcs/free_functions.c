@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/19 14:53:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/19 16:53:39 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,4 @@ void	ft_free_tab(t_table *table)
 	table->philo_tab = NULL;
 	table->fork_tab = NULL;
 	table->thread_id = NULL;
-	//table = NULL;
 }

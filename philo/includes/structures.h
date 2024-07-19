@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 16:40:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/19 17:14:19 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_table
 	pthread_mutex_t	dead;
 	pthread_mutex_t	main_thread;
 	pthread_t	*thread_id;
+	pthread_t	one_philo;
 	int			philo_nb;
 	int			fork_nb;
 	size_t		time_before_dying;
