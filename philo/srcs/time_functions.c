@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 15:08:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:52:34 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ size_t	ft_get_current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-size_t	ft_usleep(size_t millisec)
+size_t	ft_usleep(t_table *table, size_t millisec)
 {
 	size_t	start;
 
 	start = ft_get_current_time();
-	while ((ft_get_current_time() - start) < millisec)
+	while ((ft_get_current_time() - start) < millisec && !ft_no_one_died(table))
 		usleep(100);
 	return (0);
 }

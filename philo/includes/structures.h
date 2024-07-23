@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/19 17:14:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:30:27 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_philo
 	pthread_mutex_t		*left_f;
 	size_t		last_meal;
 	int			nb_of_meals_eaten;
-	// int		id;
+	int		id;
 //	pthread_mutex_t		*message;
 //	pthread_mutex_t		*dead;
 }	t_philo;

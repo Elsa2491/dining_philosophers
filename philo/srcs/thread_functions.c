@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/19 15:06:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:01:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_destroy_mutexes(t_table *table)
 		pthread_mutex_destroy((&table->fork_tab[i++]));
 }
 
-static void	ft_join_threads(t_table *table)
+void	ft_join_threads(t_table *table)
 {
 	int	i;
 

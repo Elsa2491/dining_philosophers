@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/19 14:50:37 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:00:43 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_init_table(t_table *table, char **argv)
 		table->nb_of_meals = ft_atoi(argv[5]);
 	else
 		table->nb_of_meals = -1;
-//	dprintf(2, "\tnb of meals %d\n", table->nb_of_meals);
+//	table->program_start = ft_get_current_time();
 }
 
 void	ft_init_forks(t_table *table)
@@ -44,12 +44,12 @@ void	ft_init_philos(t_table *table)
 
 	i = 0;
 	table->philo_tab = (t_philo *)malloc(sizeof(t_philo) * table->philo_nb);
-	//dprintf(2, "nb de philos %d\n", table->philo_nb);
 	if (!table->philo_tab)
 		return ;
 	while (i < table->philo_nb)
 	{
 		table->philo_tab[i].table = table;
+//		table->philo_tab[i].id = i;
 		table->philo_tab[i].nb_of_meals_eaten = 0;
 		table->philo_tab[i].last_meal = ft_get_current_time();
 		table->philo_tab[i].left_f = &(table->fork_tab[i]);

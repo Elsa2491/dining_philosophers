@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:37:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/18 16:34:47 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:51:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_init_table(t_table *table, char **argv);
 void	ft_init_philos(t_table *table);
 void	ft_init_forks(t_table *table);
 void	ft_init_threads(t_table *table);
+void	ft_join_threads(t_table *table);
 
 //	Actions
 void	*ft_routine(void *args);
@@ -54,7 +55,7 @@ void	ft_print_message(char *str, t_table *table, int id);
 int		ft_no_one_died(t_table *table);
 
 //	Time
-size_t	ft_usleep(size_t millisec);
+size_t	ft_usleep(t_table *table, size_t millisec);
 size_t	ft_get_current_time(void);
 
 #endif
