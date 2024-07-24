@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/23 23:44:17 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/24 21:12:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	ft_destroy_mutexes(t_table *table)
 	i = 0;
 	while (i < table->philo_nb)
 		pthread_mutex_destroy((&table->fork_tab[i++]));
+	pthread_mutex_destroy(&table->message);
+	pthread_mutex_destroy(&table->dead);
+	pthread_mutex_destroy(&table->meal);
 }
 
 void	ft_join_threads(t_table *table)
@@ -54,10 +57,12 @@ void	ft_init_threads(t_table *table)
 	pthread_mutex_lock(&table->main_thread);
 	while (i < table->philo_nb)
 	{
-		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine, &(table->philo_tab[i])) != 0)
+		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine,
+				&(table->philo_tab[i])) != 0)
 		{
-			dprintf(2, "Attention tout le monde, je fail %d!\n", i);
-		// Attention, si le thread 3 fail, il faut join les threads crees et tout arreter
+			while (i > 0)
+				pthread_join(table->thread_id[i--], NULL);
+			free(table->thread_id);
 			return ;
 		}
 		i += 1;

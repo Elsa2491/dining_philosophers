@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/24 16:03:18 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/24 21:06:42 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	ft_monitoring(t_table *table, t_philo *philo)
 {
 	while (1)
 	{
-		//usleep(10);
 		usleep(100);
 		if (ft_check_if_dead(table, philo)) // || ft_is_meal_max_reached(table, philo, id))
 			return ;

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/23 23:43:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/24 21:14:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_init_table(t_table *table, char **argv)
 		table->nb_of_meals = ft_atoi(argv[5]);
 	else
 		table->nb_of_meals = -1;
-//	table->program_start = ft_get_current_time();
 }
 
 void	ft_init_forks(t_table *table)
@@ -31,7 +30,7 @@ void	ft_init_forks(t_table *table)
 	int	i;
 
 	i = 0;
-	table->fork_tab = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * table->fork_nb);
+	table->fork_tab = malloc(sizeof(pthread_mutex_t) * table->fork_nb);
 	if (!table->fork_tab)
 		return ;
 	while (i < table->fork_nb)
@@ -49,7 +48,6 @@ void	ft_init_philos(t_table *table)
 	while (i < table->philo_nb)
 	{
 		table->philo_tab[i].table = table;
-//		table->philo_tab[i].id = i;
 		table->philo_tab[i].nb_of_meals_eaten = 0;
 		table->philo_tab[i].last_meal = ft_get_current_time();
 		table->philo_tab[i].left_f = &(table->fork_tab[i]);

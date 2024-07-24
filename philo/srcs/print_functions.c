@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:31:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/17 20:24:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/24 21:06:56 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ void	ft_print_message(char *str, t_table *table, int id)
 	size_t	timestamps;
 
 	timestamps = ft_get_current_time() - table->program_start;
-/*
-	dprintf(2, "\t\t-> get_current_time in %s = %zu\n", __func__, ft_get_current_time());
-	dprintf(2, "\t\t-> ICI table->program_start %zu\n", table->program_start);
-	dprintf(2, "\t\t-> table->program_start %zu\n", table->program_start);
-	dprintf(2, "\t\t-> time %zu\n", timestamps);
-*/
 	pthread_mutex_lock(&table->message);
 	if (!ft_no_one_died(table))
 		printf("%zu %d %s\n", timestamps, id, str);
