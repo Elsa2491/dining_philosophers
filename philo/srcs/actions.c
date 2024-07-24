@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/23 21:55:42 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/24 14:16:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,48 @@ void	ft_sleep(t_table *table, t_philo *philo, int id)
 void	ft_think(t_table *table, int id)
 {
 	(void)id;
-//	if (!ft_no_one_died(table))
+	//	if (!ft_no_one_died(table))
 	ft_print_message("is thinking", table, id);
-	if (id == table->philo_nb && (id & 1))
+	if (table->philo_nb % 2 != 0)
 	{
-		dprintf(2, "je rentre la################################################\n");
-		ft_usleep(table, table->time_to_eat + table->time_to_sleep);
-		return ;
+		//	usleep(100);
+		if (id == table->philo_nb) //&& (id & 1))
+		{
+//			dprintf(2, "je rentre la################################################\n");
+			usleep(100);
+//			ft_usleep(table, table->time_to_eat + table->time_to_sleep);
+		//	return ;
+		}
+		else if (id % 2 == 0)
+		{
+			ft_usleep(table, table->time_to_eat+1);
+			//ft_usleep(table, table->time_to_eat - table->time_to_sleep);
+		}
+		else if (id & 1)
+
+			ft_usleep(table, table->time_to_eat + 1);
 	}
-	else if (id & 1)
-		ft_usleep(table, table->time_to_eat - table->time_to_sleep + 1);
 }
+
+/*
+void	ft_think(t_table *table, int id)
+{
+	(void)id;
+	//	if (!ft_no_one_died(table))
+	ft_print_message("is thinking", table, id);
+	if (table->philo_nb % 2 != 0)
+	{
+		//	usleep(100);
+		if (id == table->philo_nb) //&& (id & 1))
+		{
+			dprintf(2, "je rentre la################################################\n");
+			usleep(100);
+//			ft_usleep(table, table->time_to_eat + table->time_to_sleep);
+		//	return ;
+		}
+		else if (id & 1)
+
+			ft_usleep(table, table->time_to_eat - table->time_to_sleep + 1);
+	}
+}
+*/

@@ -6,12 +6,13 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/23 20:55:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:03:18 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+// check if one should die
 int	ft_is_dead(t_table *table, t_philo *philo, size_t dead)
 {
 	pthread_mutex_lock(&table->meal);
@@ -25,6 +26,7 @@ int	ft_is_dead(t_table *table, t_philo *philo, size_t dead)
 	return (0);
 }
 
+// edit dead value
 int	ft_check_if_dead(t_table *table, t_philo *philo)
 {
 	int		i;
@@ -81,6 +83,10 @@ int     ft_is_meal_max_reached(t_table *table, t_philo *philo, int id)
 void	ft_monitoring(t_table *table, t_philo *philo)
 {
 	while (1)
+	{
+		//usleep(10);
+		usleep(100);
 		if (ft_check_if_dead(table, philo)) // || ft_is_meal_max_reached(table, philo, id))
 			return ;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/23 22:01:20 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:43:56 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ void	*ft_routine(void *args)
 //	if (!(id & 1)) 
 	if (id % 2 == 0)
 		usleep(1000);
-	if (id == table->philo_nb)
-		ft_usleep(table, table->time_to_eat);
+	if (table->philo_nb % 2 != 0 && id == table->philo_nb)
+		ft_usleep(table, table->time_to_eat - 100);
 	while (!ft_no_one_died(table))
 	{
 		ft_eat(table, philo_ptr, id);
 		ft_sleep(table, philo_ptr, id);
 		ft_think(table, id);
-		if (table->philo_nb & 1)
-			usleep(100);
+//		if (table->philo_nb & 1)
+//			usleep(100);
 	}
 	//dprintf(2, "fin de routine %d\n", id);
 	return (philo_ptr);
