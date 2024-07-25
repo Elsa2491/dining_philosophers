@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/25 20:00:13 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/25 21:39:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int	ft_is_dead(t_table *table, t_philo *philo, size_t dead)
 {
 	pthread_mutex_lock(&table->meal);
 	dead -= philo->last_meal;
+	if (table->philo_nb == 1)
+	{
+		ft_usleep(table, table->time_before_dying);
+		pthread_mutex_unlock(&table->meal);
+		return (1);
+	}
 	if (dead > table->time_before_dying)
 	{
 		pthread_mutex_unlock(&table->meal);
@@ -42,6 +48,7 @@ int	ft_check_if_dead(t_table *table, t_philo *philo)
 			table->is_dead = 1;
 			pthread_mutex_unlock(&table->dead);
 			pthread_mutex_lock(&table->message);
+			dead = ft_get_current_time();
 			printf("%zu %d died\n", dead - table->program_start, i + 1);
 			pthread_mutex_unlock(&table->message);
 			return (1);
@@ -51,9 +58,9 @@ int	ft_check_if_dead(t_table *table, t_philo *philo)
 	return (0);
 }
 
-int     ft_is_meal_max_reached(t_table *table)
+int	ft_is_meal_max_reached(t_table *table)
 {
-	int     i;
+	int	i;
 	int	count;
 
 	i = 0;
@@ -75,7 +82,6 @@ int     ft_is_meal_max_reached(t_table *table)
 	}
 	return (0);
 }
-
 
 void	ft_monitoring(t_table *table, t_philo *philo)
 {

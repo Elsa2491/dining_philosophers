@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/25 19:01:22 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/25 20:32:01 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ft_init_philos(t_table *table)
 	{
 		table->philo_tab[i].table = table;
 		table->philo_tab[i].nb_of_meals_eaten = 0;
-		table->philo_tab[i].ate = 0;
 		table->philo_tab[i].last_meal = ft_get_current_time();
 		table->philo_tab[i].left_f = &(table->fork_tab[i]);
 		table->philo_tab[i].right_f = &(table->fork_tab[(i + 1) % table->philo_nb]);
