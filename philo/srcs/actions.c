@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/25 19:03:39 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/25 20:08:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,25 @@ void	ft_sleep(t_table *table, t_philo *philo, int id)
 void	ft_think(t_table *table, int id)
 {
 	ft_print_message("is thinking", table, id);
-	if (table->philo_nb & 1)
+	if (table->nb_of_meals != -1)
 	{
-		if (id == table->philo_nb)
-			usleep(100);
-		else if (!(id & 1))
-			ft_usleep(table, table->time_to_eat + 1);
-		else if (id & 1)
-			ft_usleep(table, table->time_to_eat + 1);
+		if (table->time_to_eat > table->time_to_sleep)
+			ft_usleep(table, table->time_to_eat - table->time_to_sleep + 5);
+		else
+			ft_usleep(table, 5);
+	}
+	else
+	{
+		if (table->philo_nb & 1)
+		{
+			if (id == table->philo_nb)
+				usleep(100);
+			else
+				ft_usleep(table, table->time_to_eat + 1);
+/*
+			else if (id & 1)
+				ft_usleep(table, table->time_to_eat + 1);
+*/
+		}
 	}
 }

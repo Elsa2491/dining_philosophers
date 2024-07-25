@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/25 19:00:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/25 20:00:13 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ int	ft_check_if_dead(t_table *table, t_philo *philo)
 	return (0);
 }
 
-int     ft_is_meal_max_reached(t_table *table, t_philo *philo)
+int     ft_is_meal_max_reached(t_table *table)
 {
-	(void)philo;
 	int     i;
 	int	count;
 
@@ -67,7 +66,14 @@ int     ft_is_meal_max_reached(t_table *table, t_philo *philo)
 		i += 1;
 	}
 	pthread_mutex_unlock(&table->meal);
-	return (count == table->philo_nb);
+	if (count == table->philo_nb)
+	{
+		pthread_mutex_lock(&table->dead);
+		table->is_dead = 1;
+		pthread_mutex_unlock(&table->dead);
+		return (1);
+	}
+	return (0);
 }
 
 
@@ -76,7 +82,7 @@ void	ft_monitoring(t_table *table, t_philo *philo)
 	while (1)
 	{
 		usleep(100);
-		if (ft_check_if_dead(table, philo) || ft_is_meal_max_reached(table, philo))
+		if (ft_check_if_dead(table, philo) || ft_is_meal_max_reached(table))
 			return ;
 	}
 }
