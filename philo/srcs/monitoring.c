@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/24 21:06:42 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/25 19:00:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,23 @@ int	ft_check_if_dead(t_table *table, t_philo *philo)
 	return (0);
 }
 
-int     ft_is_meal_max_reached(t_table *table, t_philo *philo, int id)
+int     ft_is_meal_max_reached(t_table *table, t_philo *philo)
 {
 	(void)philo;
-	(void)id;
 	int     i;
-	//        int     finish;
+	int	count;
 
 	i = 0;
-	//        finish = 0;
-	if (table->nb_of_meals == 1)
+	count = 0;
+	pthread_mutex_lock(&table->meal);
+	while (i < table->philo_nb)
 	{
-		dprintf(2, "je passe la\n");
-		exit (1);
+		if (table->philo_tab[i].nb_of_meals_eaten == table->nb_of_meals)
+			count += 1;
+		i += 1;
 	}
-	/*
-	   while (i < table->philo_nb)
-	   {
-	   if (table->philo_tab[i].nb_of_meals_eaten <= table->nb_of_meals)
-	   table->philo_tab[i].nb_of_meals_eaten += 1;
-	   i += 1;
-	   }
-	   if (table->philo_tab[0].nb_of_meals_eaten == table->nb_of_meals)
-	   return (1);
-	   return (0);
-	 */
-	return (0);
+	pthread_mutex_unlock(&table->meal);
+	return (count == table->philo_nb);
 }
 
 
@@ -85,7 +76,7 @@ void	ft_monitoring(t_table *table, t_philo *philo)
 	while (1)
 	{
 		usleep(100);
-		if (ft_check_if_dead(table, philo)) // || ft_is_meal_max_reached(table, philo, id))
+		if (ft_check_if_dead(table, philo) || ft_is_meal_max_reached(table, philo))
 			return ;
 	}
 }

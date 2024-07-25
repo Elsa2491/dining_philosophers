@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/24 21:20:33 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/25 19:03:39 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	ft_eat(t_table *table, t_philo *philo, int id)
 	ft_print_message("is eating", table, id);
 	pthread_mutex_lock(&table->meal);
 	philo->last_meal = ft_get_current_time();
+	pthread_mutex_unlock(&table->meal);
+	pthread_mutex_lock(&table->meal);
+	philo->nb_of_meals_eaten += 1;
+	if (philo->nb_of_meals_eaten == table->nb_of_meals)
+		philo->ate = 1;
 	pthread_mutex_unlock(&table->meal);
 	ft_usleep(table, philo->table->time_to_eat);
 	if (table->philo_nb > 1)

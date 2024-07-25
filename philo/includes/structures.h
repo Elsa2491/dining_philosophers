@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/23 16:30:27 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:01:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ typedef struct s_philo
 	struct s_table		*table;
 	pthread_mutex_t		*right_f;
 	pthread_mutex_t		*left_f;
+	pthread_mutex_t		*meal_eaten;
 	size_t		last_meal;
 	int			nb_of_meals_eaten;
-	int		id;
+	int		ate;
 //	pthread_mutex_t		*message;
 //	pthread_mutex_t		*dead;
 }	t_philo;
@@ -37,7 +38,7 @@ typedef struct s_table
 	pthread_mutex_t	dead;
 	pthread_mutex_t	main_thread;
 	pthread_t	*thread_id;
-	pthread_t	one_philo;
+//	pthread_t	one_philo;
 	int			philo_nb;
 	int			fork_nb;
 	size_t		time_before_dying;
