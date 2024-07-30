@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:29 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/25 21:08:46 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/29 15:10:57 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,22 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	size_t		program_start;
-	t_philo		*philo_tab;
+	size_t			program_start;
+	t_philo			*philo_tab;
 	pthread_mutex_t	*fork_tab;
 	pthread_mutex_t	message;
 	pthread_mutex_t	meal;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	main_thread;
-	pthread_t	*thread_id;
-	int			philo_nb;
-	int			fork_nb;
-	size_t		time_before_dying;
-	size_t		time_to_eat;
-	size_t		time_to_sleep;
-	size_t		time_to_think;
-	int			nb_of_meals;
-	int			is_dead;
+	pthread_t		*thread_id;
+	int				philo_nb;
+	int				fork_nb;
+	size_t			time_before_dying;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			time_to_think;
+	int				nb_of_meals;
+	int				is_dead;
 }	t_table;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:37:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/23 20:51:10 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:50:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	ft_eat(t_table *table, t_philo *philo, int id);
 void	ft_sleep(t_table *table, t_philo *philo, int id);
 void	ft_think(t_table *table, int id);
 void	ft_print_message(char *str, t_table *table, int id);
+
+//	Check if a mutex fail
+void	ft_check_unlock_dead(t_table *table);
+void	ft_check_unlock_meal(t_table *table);
+void	ft_check_unlock_main_thread(t_table *table);
 
 //	Check if someone died
 int		ft_no_one_died(t_table *table);
