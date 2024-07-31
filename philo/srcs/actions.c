@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/30 14:58:41 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 11:46:54 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,9 @@ void	ft_take_forks(t_table *table, t_philo *philo, int id)
 	if (table->philo_nb == 1)
 	{
 		ft_usleep(table, table->time_before_dying);
-//		pthread_mutex_unlock(philo->left_f);
 		if (pthread_mutex_unlock(philo->left_f) != 0)
 			printf("Error: left fork unlock failed\n");
-		pthread_mutex_lock(&table->dead);
-		table->is_dead = 1;
-		// pthread_mutex_unlock(&table->dead);
-		ft_check_unlock_dead(table);
+		ft_handle_mutex_for_death(table);
 		return ;
 	}
 	if (pthread_mutex_lock(philo->right_f) == 0)
@@ -48,14 +44,7 @@ void	ft_eat(t_table *table, t_philo *philo, int id)
 {
 	ft_take_forks(table, philo, id);
 	ft_print_message("is eating", table, id);
-	pthread_mutex_lock(&table->meal);
-	philo->last_meal = ft_get_current_time();
-//	pthread_mutex_unlock(&table->meal);
-	ft_check_unlock_meal(table);
-	pthread_mutex_lock(&table->meal);
-	philo->nb_of_meals_eaten += 1;
-//	pthread_mutex_unlock(&table->meal);
-	ft_check_unlock_meal(table);
+	ft_handle_mutexes_ft_eat(table, philo);
 	ft_usleep(table, philo->table->time_to_eat);
 	if (table->philo_nb > 1)
 		ft_drop_forks(philo);
@@ -70,25 +59,8 @@ void	ft_sleep(t_table *table, t_philo *philo, int id)
 void	ft_think(t_table *table, int id)
 {
 	ft_print_message("is thinking", table, id);
-	if (table->nb_of_meals != -1)
-	{
-		if (table->time_to_eat > table->time_to_sleep)
-			ft_usleep(table, table->time_to_eat - table->time_to_sleep + 5);
-		else
-			ft_usleep(table, 5);
-	}
-	else
-	{
-		if (table->philo_nb & 1)
-		{
-			if (id == table->philo_nb)
-				usleep(100);
-			else
-				ft_usleep(table, table->time_to_eat + 1);
-/*
-			else if (id & 1)
-				ft_usleep(table, table->time_to_eat + 1);
-*/
-		}
-	}
+	if (table->time_to_eat > table->time_to_sleep)
+		ft_usleep(table, table->time_to_eat - table->time_to_sleep + 5);
+	else if (id & 1)
+		ft_usleep(table, 5);
 }

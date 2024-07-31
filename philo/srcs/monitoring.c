@@ -6,34 +6,32 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/25 21:39:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 11:35:13 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-// check if one should die
-int	ft_is_dead(t_table *table, t_philo *philo, size_t dead)
+int	ft_check_if_one_should_die(t_table *table, t_philo *philo, size_t dead)
 {
 	pthread_mutex_lock(&table->meal);
 	dead -= philo->last_meal;
 	if (table->philo_nb == 1)
 	{
 		ft_usleep(table, table->time_before_dying);
-		pthread_mutex_unlock(&table->meal);
+		ft_check_unlock_meal(table);
 		return (1);
 	}
 	if (dead > table->time_before_dying)
 	{
-		pthread_mutex_unlock(&table->meal);
+		ft_check_unlock_meal(table);
 		return (1);
 	}
-	pthread_mutex_unlock(&table->meal);
+	ft_check_unlock_meal(table);
 	return (0);
 }
 
-// edit dead value
-int	ft_check_if_dead(t_table *table, t_philo *philo)
+int	ft_edit_dead_val(t_table *table, t_philo *philo)
 {
 	int		i;
 	size_t	dead;
@@ -42,15 +40,15 @@ int	ft_check_if_dead(t_table *table, t_philo *philo)
 	dead = ft_get_current_time();
 	while (i < table->philo_nb)
 	{
-		if (ft_is_dead(table, philo, dead))
+		if (ft_check_if_one_should_die(table, philo, dead))
 		{
-			pthread_mutex_lock(&table->dead);
-			table->is_dead = 1;
-			pthread_mutex_unlock(&table->dead);
+			ft_handle_mutex_for_death(table);
+/*
 			pthread_mutex_lock(&table->message);
 			dead = ft_get_current_time();
 			printf("%zu %d died\n", dead - table->program_start, i + 1);
-			pthread_mutex_unlock(&table->message);
+*/
+			ft_check_mutex_message(table, dead, i);
 			return (1);
 		}
 		i += 1;
@@ -72,12 +70,10 @@ int	ft_is_meal_max_reached(t_table *table)
 			count += 1;
 		i += 1;
 	}
-	pthread_mutex_unlock(&table->meal);
+	ft_check_unlock_meal(table);
 	if (count == table->philo_nb)
 	{
-		pthread_mutex_lock(&table->dead);
-		table->is_dead = 1;
-		pthread_mutex_unlock(&table->dead);
+		ft_handle_mutex_for_death(table);
 		return (1);
 	}
 	return (0);
@@ -88,7 +84,7 @@ void	ft_monitoring(t_table *table, t_philo *philo)
 	while (1)
 	{
 		usleep(100);
-		if (ft_check_if_dead(table, philo) || ft_is_meal_max_reached(table))
+		if (ft_edit_dead_val(table, philo) || ft_is_meal_max_reached(table))
 			return ;
 	}
 }

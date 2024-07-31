@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/24 21:12:05 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 10:34:37 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	ft_init_threads(t_table *table)
 		i += 1;
 	}
 	table->program_start = ft_get_current_time();
-	pthread_mutex_unlock(&table->main_thread);
+//	pthread_mutex_unlock(&table->main_thread);
+	ft_check_unlock_main_thread(table);
 	ft_monitoring(table, table->philo_tab);
 	ft_join_threads(table);
 }
