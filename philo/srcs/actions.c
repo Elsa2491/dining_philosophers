@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/31 11:46:54 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 13:38:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	ft_take_forks(t_table *table, t_philo *philo, int id)
 {
-	if (pthread_mutex_lock(philo->left_f) == 0)
-		ft_print_message("has taken a fork", table, id);
-	else
+	if (pthread_mutex_lock(philo->left_f) != 0)
 		printf("Error: left fork lock failed\n");
+	ft_print_message("has taken a fork", table, id);
 	if (table->philo_nb == 1)
 	{
 		ft_usleep(table, table->time_before_dying);
@@ -26,10 +25,9 @@ void	ft_take_forks(t_table *table, t_philo *philo, int id)
 		ft_handle_mutex_for_death(table);
 		return ;
 	}
-	if (pthread_mutex_lock(philo->right_f) == 0)
-		ft_print_message("has taken a fork", table, id);
-	else
+	if (pthread_mutex_lock(philo->right_f) != 0)
 		printf("Error: right fork lock failed\n");
+	ft_print_message("has taken a fork", table, id);
 }
 
 void	ft_drop_forks(t_philo *philo)
@@ -59,8 +57,21 @@ void	ft_sleep(t_table *table, t_philo *philo, int id)
 void	ft_think(t_table *table, int id)
 {
 	ft_print_message("is thinking", table, id);
-	if (table->time_to_eat > table->time_to_sleep)
-		ft_usleep(table, table->time_to_eat - table->time_to_sleep + 5);
-	else if (id & 1)
-		ft_usleep(table, 5);
+	if (table->nb_of_meals != -1)
+	{
+		if (table->time_to_eat > table->time_to_sleep)
+			ft_usleep(table, table->time_to_eat - table->time_to_sleep + 5);
+		else
+			ft_usleep(table, 5);
+	}
+	else
+	{
+		if (table->philo_nb & 1)
+		{
+			if (id == table->philo_nb)
+				usleep(100);
+			else
+				ft_usleep(table, table->time_to_eat + 1);
+		}
+	}
 }

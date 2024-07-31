@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/31 11:35:13 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 13:12:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_check_if_one_should_die(t_table *table, t_philo *philo, size_t dead)
 {
-	pthread_mutex_lock(&table->meal);
+	if (pthread_mutex_lock(&table->meal) != 0)
+		printf("Error: meal mutex lock failed\n");
 	dead -= philo->last_meal;
 	if (table->philo_nb == 1)
 	{
@@ -43,11 +44,6 @@ int	ft_edit_dead_val(t_table *table, t_philo *philo)
 		if (ft_check_if_one_should_die(table, philo, dead))
 		{
 			ft_handle_mutex_for_death(table);
-/*
-			pthread_mutex_lock(&table->message);
-			dead = ft_get_current_time();
-			printf("%zu %d died\n", dead - table->program_start, i + 1);
-*/
 			ft_check_mutex_message(table, dead, i);
 			return (1);
 		}
@@ -63,7 +59,8 @@ int	ft_is_meal_max_reached(t_table *table)
 
 	i = 0;
 	count = 0;
-	pthread_mutex_lock(&table->meal);
+	if (pthread_mutex_lock(&table->meal) != 0)
+		printf("Error: meal mutex lock failed\n");
 	while (i < table->philo_nb)
 	{
 		if (table->philo_tab[i].nb_of_meals_eaten == table->nb_of_meals)

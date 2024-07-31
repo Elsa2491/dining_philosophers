@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/31 10:34:37 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 12:28:48 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_init_mutexes(t_table *table)
 	pthread_mutex_init(&table->message, NULL);
 	pthread_mutex_init(&table->dead, NULL);
 	pthread_mutex_init(&table->meal, NULL);
+	pthread_mutex_init(&table->main_thread, NULL);
 }
 
 void	ft_destroy_mutexes(t_table *table)
@@ -53,8 +54,8 @@ void	ft_init_threads(t_table *table)
 	if (!table->thread_id)
 		return ;
 	ft_init_mutexes(table);
-	pthread_mutex_init(&table->main_thread, NULL);
-	pthread_mutex_lock(&table->main_thread);
+	if (pthread_mutex_lock(&table->main_thread) != 0)
+		printf("Error: main thread mutex lock fails\n");
 	while (i < table->philo_nb)
 	{
 		if (pthread_create(&(table->thread_id[i]), NULL, &ft_routine,
@@ -68,7 +69,6 @@ void	ft_init_threads(t_table *table)
 		i += 1;
 	}
 	table->program_start = ft_get_current_time();
-//	pthread_mutex_unlock(&table->main_thread);
 	ft_check_unlock_main_thread(table);
 	ft_monitoring(table, table->philo_tab);
 	ft_join_threads(table);

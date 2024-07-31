@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:31:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/31 11:33:09 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 12:34:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	ft_print_message(char *str, t_table *table, int id)
 	if (!ft_no_one_died(table))
 		printf("%zu %d %s\n", timestamps, id, str);
 	if (pthread_mutex_unlock(&table->message) != 0)
-		printf("Error: message mutex unlock failed\n"); 
-//	ft_check_unlock_message(table);
+		printf("Error: message mutex unlock failed\n");
 }
 
 void	ft_print_header(void)

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:40:49 by eltouma           #+#    #+#             */
-/*   Updated: 2024/07/25 20:32:01 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/07/31 13:11:37 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ void	ft_init_forks(t_table *table)
 		pthread_mutex_init(&table->fork_tab[i++], NULL);
 }
 
+void	ft_assign_forks(t_table *table, int i)
+{
+	if (i == table->philo_nb - 1)
+	{
+		table->philo_tab[i].left_f = &(table->fork_tab[i]);
+		table->philo_tab[i].right_f = &(table->fork_tab[0]);
+	}
+	else
+	{
+		table->philo_tab[i].right_f = &(table->fork_tab[i]);
+		table->philo_tab[i].left_f = &(table->fork_tab[i + 1]);
+	}
+}
+
 void	ft_init_philos(t_table *table)
 {
 	int	i;
@@ -51,17 +65,9 @@ void	ft_init_philos(t_table *table)
 		table->philo_tab[i].nb_of_meals_eaten = 0;
 		table->philo_tab[i].last_meal = ft_get_current_time();
 		table->philo_tab[i].left_f = &(table->fork_tab[i]);
-		table->philo_tab[i].right_f = &(table->fork_tab[(i + 1) % table->philo_nb]);
-		if (i == table->philo_nb - 1)
-		{
-			table->philo_tab[i].left_f = &(table->fork_tab[i]);
-			table->philo_tab[i].right_f = &(table->fork_tab[0]);
-		}
-		else
-		{
-			table->philo_tab[i].right_f = &(table->fork_tab[i]);
-			table->philo_tab[i].left_f = &(table->fork_tab[i + 1]);
-		}
+		table->philo_tab[i].right_f
+			= &(table->fork_tab[(i + 1) % table->philo_nb]);
+		ft_assign_forks(table, i);
 		i += 1;
 	}
 }
